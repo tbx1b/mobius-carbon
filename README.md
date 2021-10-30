@@ -7,7 +7,6 @@
 | include | Global include directory |
 | libkern | Basic utility functions for use in the kernel |
 | libsa | Bootstrap code (the boot loader is named Bateau) |
-| mem | Memory allocation subsystem. This is NOT memory management |
 | osck | Carbon subsystem |
 | rootfs | QEMU sandbox |
 
