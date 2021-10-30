@@ -115,14 +115,18 @@ void os_vm_read_memmap(efi_descriptor_t* memmap, size_t memmap_size, size_t memm
 
     _init_bmp(bmp_size, largestFreeMemSeg);
 
-    os_vm_lock_m((uintptr_t)&__private_bmp, __private_bmp.size / 0x1000 + 1);
+    os_vm_reserve_m(0, memorySize / 0x1000 + 1);
+
+    //os_vm_lock_m((uintptr_t)&__private_bmp, __private_bmp.size / 0x1000 + 1);
 
     for (int i = 0; i < entries; i++){
         efi_descriptor_t* desc = (efi_descriptor_t*)((uint64_t)memmap + (i * memmap_desc_size));
-        if (desc->type != 7){ // not efiConventionalMemory
-            os_vm_reserve_m((uintptr_t)desc->physical_address, desc->page_count);
+        if (desc->type == 7){ // not efiConventionalMemory
+            os_vm_release_m((uintptr_t)desc->physical_address, desc->page_count);
         }
     }
+
+    os_vm_lock_m((uintptr_t)&__private_bmp, __private_bmp.size / 0x1000 + 1);
 }
 
 void _init_bmp(size_t bmp_size, uintptr_t buffer_address)
