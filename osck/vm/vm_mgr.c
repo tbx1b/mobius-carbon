@@ -25,47 +25,41 @@ void os_vm_raw_map(vptm_t *self, uintptr_t virtual, uintptr_t physical)
 
     PDE = self->pml4_address->entries[indexer.page_dir_ptr_index];
     vm_page_table_t* PDP;
-    if (!PDE.present){
+    if (!PDE.present) {
         PDP = (vm_page_table_t*)os_vm_alloc();
         memset(PDP, 0, 0x1000);
         PDE.address = (uint64_t)PDP >> 12;
         PDE.present = true;
         PDE.rw = true;
         self->pml4_address->entries[indexer.page_dir_ptr_index] = PDE;
-    }
-    else
-    {
+    } else {
         PDP = (vm_page_table_t*)((uint64_t)PDE.address << 12);
     }
     
     
     PDE = PDP->entries[indexer.page_dir_index];
     vm_page_table_t* PD;
-    if (!PDE.present){
+    if (!PDE.present) {
         PD = (vm_page_table_t*)os_vm_alloc();
         memset(PD, 0, 0x1000);
         PDE.address = (uint64_t)PD >> 12;
         PDE.present = true;
         PDE.rw = true;
         PDP->entries[indexer.page_dir_index] = PDE;
-    }
-    else
-    {
+    } else {
         PD = (vm_page_table_t*)((uint64_t)PDE.address << 12);
     }
 
     PDE = PD->entries[indexer.page_table_index];
     vm_page_table_t* PT;
-    if (!PDE.present){
+    if (!PDE.present) {
         PT = (vm_page_table_t*)os_vm_alloc();
         memset(PT, 0, 0x1000);
         PDE.address = (uint64_t)PT >> 12;
         PDE.present = true;
         PDE.rw = true;
         PD->entries[indexer.page_table_index] = PDE;
-    }
-    else
-    {
+    } else {
         PT = (vm_page_table_t*)((uint64_t)PDE.address << 12);
     }
 
