@@ -17,6 +17,7 @@ To build the kernel correctly, first set up a suitable workspace. The requiremen
 - clang
 - ld.lld
 - lld-link
+- lldb or gdb
 - make
 - cmake
 - gcc (If you wish to rebuild libuefi.a)
@@ -51,7 +52,7 @@ $ brew install qemu # macOS
 $ make qemu
 ```
 
-
+This will open an lldb or gdb session (set in `EXTERNAL/Makefile`). Tip: to connect to QEMU, run `gdb-remote localhost:1234` in lldb. To continue execution, type 'c'.
 
 ## Adding and removing files
 
