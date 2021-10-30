@@ -1,5 +1,5 @@
 /**
- *  @file bateau.c
+ *  @file bateau.h
  *  @author MOBIUSLOOPFOUR <scratch.joint-0i@icloud.com>
  *
  *  Copyright MOBIUSLOOPFOUR 2021

@@ -1,4 +1,3 @@
-#include "libkern/tty.h"
 /**
  *  @file assert.c
  *  @author MOBIUSLOOPFOUR <scratch.joint-0i@icloud.com>
@@ -23,6 +22,7 @@
  */
 
 #include <carbon/stdint.h>
+#include "libkern/tty.h"
 
 extern void kprintf(const char *s, ...);
 

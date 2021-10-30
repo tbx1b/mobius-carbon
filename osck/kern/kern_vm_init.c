@@ -1,3 +1,26 @@
+/**
+ *  @file kern_vm_init.c
+ *  @author MOBIUSLOOPFOUR <scratch.joint-0i@icloud.com>
+ *
+ *  Copyright MOBIUSLOOPFOUR 2021
+ *  All rights reserved.
+ *
+ *  THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
+ *  ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ *  IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ *  ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
+ *  FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ *  DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ *  OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ *  HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ *  LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+ *  OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ *  SUCH DAMAGE.
+ *
+ *  @brief Virtual memory intialization code + identity mapping
+ *
+ */
+
 #include <vm/mgr.h>
 #include <libkern/tty.h>
 
@@ -46,15 +69,17 @@ os_kern_vm_init(bateau_info_struct_t *aBootTimeEnvironment)
         os_vm_raw_map(&page_tab_mgr, t, t);
     }
 
-    #pragma INTEL64_SPECIFIC
+    #pragma mark This is x86_64 specific code. Be aware when porting.
     __asm__("mov %0, %%cr3" : : "r" (pml4)); // load the page table into the control register. (x86_64)
 
     os_vm_raw_map(&page_tab_mgr, 0x600000000, 0x80000);
 
     // trivial test
-    uint64_t* test = (uint64_t*)0x600000000;
-    *test = 10;
-    assert(*test == 10, "Paging was not set up correctly or is corrupted");
+    {
+        uint64_t* test = (uint64_t*)0x600000000;
+        *test = 10;
+        assert(*test == 10, "Paging was not set up correctly or is corrupted");
+    }
 
     return 1;
 }

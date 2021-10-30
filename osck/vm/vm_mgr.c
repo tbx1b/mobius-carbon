@@ -1,3 +1,26 @@
+/**
+ *  @file vm_mgr.c
+ *  @author MOBIUSLOOPFOUR <scratch.joint-0i@icloud.com>
+ *
+ *  Copyright MOBIUSLOOPFOUR 2021
+ *  All rights reserved.
+ *
+ *  THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
+ *  ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ *  IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ *  ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
+ *  FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ *  DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ *  OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ *  HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ *  LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+ *  OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ *  SUCH DAMAGE.
+ *
+ *  @brief Virtual memory remapping
+ *
+ */
+
 #include "libkern/tty.h"
 
 #include <vm/ptab.h>
@@ -21,51 +44,51 @@ void os_vm_raw_map(vptm_t *self, uintptr_t virtual, uintptr_t physical)
 {
     vm_page_map_index_t indexer;
     vm_mk_page_map_index(&indexer, virtual);
-    vm_page_dir_entry_t PDE;
+    vm_page_dir_entry_t pde;
 
-    PDE = self->pml4_address->entries[indexer.page_dir_ptr_index];
-    vm_page_table_t* PDP;
-    if (!PDE.present) {
-        PDP = (vm_page_table_t*)os_vm_alloc();
-        memset(PDP, 0, 0x1000);
-        PDE.address = (uint64_t)PDP >> 12;
-        PDE.present = true;
-        PDE.rw = true;
-        self->pml4_address->entries[indexer.page_dir_ptr_index] = PDE;
+    pde = self->pml4_address->entries[indexer.page_dir_ptr_index];
+    vm_page_table_t* pdp;
+    if (!pde.present) {
+        pdp = (vm_page_table_t*)os_vm_alloc();
+        memset(pdp, 0, 0x1000);
+        pde.address = (uint64_t)pdp >> 12;
+        pde.present = true;
+        pde.rw = true;
+        self->pml4_address->entries[indexer.page_dir_ptr_index] = pde;
     } else {
-        PDP = (vm_page_table_t*)((uint64_t)PDE.address << 12);
+        pdp = (vm_page_table_t*)((uint64_t)pde.address << 12);
     }
     
     
-    PDE = PDP->entries[indexer.page_dir_index];
-    vm_page_table_t* PD;
-    if (!PDE.present) {
-        PD = (vm_page_table_t*)os_vm_alloc();
-        memset(PD, 0, 0x1000);
-        PDE.address = (uint64_t)PD >> 12;
-        PDE.present = true;
-        PDE.rw = true;
-        PDP->entries[indexer.page_dir_index] = PDE;
+    pde = pdp->entries[indexer.page_dir_index];
+    vm_page_table_t* pd;
+    if (!pde.present) {
+        pd = (vm_page_table_t*)os_vm_alloc();
+        memset(pd, 0, 0x1000);
+        pde.address = (uint64_t)pd >> 12;
+        pde.present = true;
+        pde.rw = true;
+        pdp->entries[indexer.page_dir_index] = pde;
     } else {
-        PD = (vm_page_table_t*)((uint64_t)PDE.address << 12);
+        pd = (vm_page_table_t*)((uint64_t)pde.address << 12);
     }
 
-    PDE = PD->entries[indexer.page_table_index];
-    vm_page_table_t* PT;
-    if (!PDE.present) {
-        PT = (vm_page_table_t*)os_vm_alloc();
-        memset(PT, 0, 0x1000);
-        PDE.address = (uint64_t)PT >> 12;
-        PDE.present = true;
-        PDE.rw = true;
-        PD->entries[indexer.page_table_index] = PDE;
+    pde = pd->entries[indexer.page_table_index];
+    vm_page_table_t* pt;
+    if (!pde.present) {
+        pt = (vm_page_table_t*)os_vm_alloc();
+        memset(pt, 0, 0x1000);
+        pde.address = (uint64_t)pt >> 12;
+        pde.present = true;
+        pde.rw = true;
+        pd->entries[indexer.page_table_index] = pde;
     } else {
-        PT = (vm_page_table_t*)((uint64_t)PDE.address << 12);
+        pt = (vm_page_table_t*)((uint64_t)pde.address << 12);
     }
 
-    PDE = PT->entries[indexer.page_index];
-    PDE.address = (uint64_t)physical >> 12;
-    PDE.present = true;
-    PDE.rw = true;
-    PT->entries[indexer.page_index] = PDE;
+    pde = pt->entries[indexer.page_index];
+    pde.address = (uint64_t)physical >> 12;
+    pde.present = true;
+    pde.rw = true;
+    pt->entries[indexer.page_index] = pde;
 }
