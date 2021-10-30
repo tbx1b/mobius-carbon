@@ -26,7 +26,7 @@ os_kern_vm_init(bateau_info_struct_t *aBootTimeEnvironment)
     os_vm_read_memmap(aBootTimeEnvironment->memmap, aBootTimeEnvironment->memmap_size, aBootTimeEnvironment->memmap_descriptor_size);
 
     ptrdiff_t kernel_size = (uintptr_t)&_k_end - (uintptr_t)&_k_start;
-    size_t kernel_p = (uintptr_t)kernel_size / 4096 + 1; // amount of kernel pages to be alloc'd
+    size_t kernel_p = (uintptr_t)kernel_size / 0x1000 + 1; // amount of kernel pages to be alloc'd
 
     os_vm_lock_m((uintptr_t)&_k_start, kernel_p);
 
@@ -42,7 +42,7 @@ os_kern_vm_init(bateau_info_struct_t *aBootTimeEnvironment)
 
     uint64_t fbBase = (uint64_t)aBootTimeEnvironment->frame_buffer->base;
     uint64_t fbSize = (uint64_t)aBootTimeEnvironment->frame_buffer->size + 0x1000;
-    for (uint64_t t = fbBase; t < fbBase + fbSize; t += 4096){
+    for (uint64_t t = fbBase; t < fbBase + fbSize; t += 0x1000){
         os_vm_raw_map(&page_tab_mgr, t, t);
     }
 

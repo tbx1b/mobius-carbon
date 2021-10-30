@@ -78,21 +78,21 @@ void os_vm_read_memmap(efi_descriptor_t* memmap, size_t memmap_size, size_t memm
     for (int i = 0; i < entries; i++){
         efi_descriptor_t* desc = (efi_descriptor_t*)((uint64_t)memmap + (i * memmap_desc_size));
         if (desc->type == 7){ // type = EfiConventionalMemory
-            if (desc->page_count * 4096 > largestFreeMemSegSize)
+            if (desc->page_count * 0x1000 > largestFreeMemSegSize)
             {
                 largestFreeMemSeg = (uintptr_t)(desc->physical_address);
-                largestFreeMemSegSize = desc->page_count * 4096;
+                largestFreeMemSegSize = desc->page_count * 0x1000;
             }
         }
     }
 
     uint64_t memorySize = os_vm_get_mem_size(memmap, entries, memmap_desc_size);
     __private_free_mem = memorySize;
-    uint64_t bmp_size = memorySize / 4096 / 8 + 1;
+    uint64_t bmp_size = memorySize / 0x1000 / 8 + 1;
 
     _init_bmp(bmp_size, largestFreeMemSeg);
 
-    os_vm_lock_m((uintptr_t)&__private_bmp, __private_bmp.size / 4096 + 1);
+    os_vm_lock_m((uintptr_t)&__private_bmp, __private_bmp.size / 0x1000 + 1);
 
     for (int i = 0; i < entries; i++){
         efi_descriptor_t* desc = (efi_descriptor_t*)((uint64_t)memmap + (i * memmap_desc_size));
@@ -116,8 +116,8 @@ uintptr_t os_vm_alloc(void)
 {
     for (uint64_t index = 0; index < __private_bmp.size * 8; index++){
         if (os_vm_get(&__private_bmp, index) == true) continue;
-        os_vm_lock(index * 4096);
-        return (index * 4096);
+        os_vm_lock(index * 0x1000);
+        return (index * 0x1000);
     }
 
     return NULL; // Page Frame Swap to file
@@ -125,71 +125,71 @@ uintptr_t os_vm_alloc(void)
 
 void os_vm_free(uintptr_t address)
 {
-    uint64_t index = (uint64_t)address / 4096;
+    uint64_t index = (uint64_t)address / 0x1000;
     if (os_vm_get(&__private_bmp, index) == false) return;
     os_vm_set(&__private_bmp, index, false);
-    __private_free_mem += 4096;
-    __private_used_mem -= 4096;
+    __private_free_mem += 0x1000;
+    __private_used_mem -= 0x1000;
 }
 
 void os_vm_free_m(uintptr_t address, uint64_t page_count)
 { // free multiple pages
     for (int t = 0; t < page_count; t++) {
-        os_vm_free((uintptr_t)address + (t * 4096));
+        os_vm_free((uintptr_t)address + (t * 0x1000));
     }
 }
 
 void os_vm_lock(uintptr_t address)
 {
-    uint64_t index = (uint64_t)address / 4096;
+    uint64_t index = (uint64_t)address / 0x1000;
 
     if (os_vm_get(&__private_bmp, index) == true) return;
     os_vm_set(&__private_bmp, index, true);
 
-    __private_free_mem -= 4096;
-    __private_used_mem += 4096;
+    __private_free_mem -= 0x1000;
+    __private_used_mem += 0x1000;
 }
 
 void os_vm_lock_m(uintptr_t address, uint64_t page_count)
 {
     for (int t = 0; t < page_count; t++) {
-        os_vm_lock((uintptr_t)address + (t * 4096));
+        os_vm_lock((uintptr_t)address + (t * 0x1000));
     }
 }
 
 void os_vm_release(uintptr_t address)
 {
-    uint64_t index = (uint64_t)address / 4096;
+    uint64_t index = (uint64_t)address / 0x1000;
 
     if (os_vm_get(&__private_bmp, index) == false) return;
     os_vm_set(&__private_bmp, index, false);
 
-    __private_free_mem += 4096;
-    __private_reserved_mem -= 4096;
+    __private_free_mem += 0x1000;
+    __private_reserved_mem -= 0x1000;
 }
 
 void os_vm_release_m(uintptr_t address, uint64_t page_count)
 {
     for (int t = 0; t < page_count; t++) {
-        os_vm_release((uintptr_t)address + (t * 4096));
+        os_vm_release((uintptr_t)address + (t * 0x1000));
     }
 }
 
 void os_vm_reserve(uintptr_t address)
 {
-    uint64_t index = (uint64_t)address / 4096;
+    uint64_t index = (uint64_t)address / 0x1000;
 
     if (os_vm_get(&__private_bmp, index) == true) return;
     os_vm_set(&__private_bmp, index, true);
 
-    __private_free_mem -= 4096;
-    __private_reserved_mem += 4096;
+    __private_free_mem -= 0x1000;
+    __private_reserved_mem += 0x1000;
 }
 
 void os_vm_reserve_m(uintptr_t address, uint64_t page_count)
 {
     for (int t = 0; t < page_count; t++) {
-        os_vm_reserve((uintptr_t)address + (t * 4096));
+        os_vm_reserve((uintptr_t)address + (t * 0x1000));
     }
 }
 
