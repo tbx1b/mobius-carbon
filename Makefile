@@ -37,8 +37,8 @@ configure:
 	@cd libkern/build && cmake ../
 	@make clean
 
-.PHONY : push
-push: clean
+.PHONY : release_ready
+push: release_ready
 	@rm -rf osck/build
 	@rm -rf libkern/build
 	git push
@@ -48,3 +48,12 @@ rebuild_cache:
 	@make -C osck rebuild_cache
 	@make -C libkern rebuild_cache
 	@make clean
+
+.PHONY : help
+help:
+	@printf '\e[1;32m%-6s\e[m\n' "[make help: 			Display this help message]"
+	@printf '\e[1;32m%-6s\e[m\n' "[make configure: 		Configure the repository to be built with make]"
+	@printf '\e[1;32m%-6s\e[m\n' "[make all: 			Build the whole project$@]"
+	@printf '\e[1;32m%-6s\e[m\n' "[make rebuild_cache: 		Rebuild the CMake cache (when adding/removing files)]"
+	@printf '\e[1;32m%-6s\e[m\n' "[make qemu: 			Run the QEMU emulator with the rootfs as boot medium]"
+

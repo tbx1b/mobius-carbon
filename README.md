@@ -22,7 +22,7 @@ To build the kernel correctly, first set up a suitable workspace. The requiremen
 - cmake
 - gcc (If you wish to rebuild libuefi.a)
 
-First, set up the workspace. If you get errors, make sure uefi is symlinked correctly.
+First, set up the workspace. If you get errors, make sure uefi is symlinked correctly. For more information run `make help`.
 
 ```Bash
 $ git clone https://github.com/mobiusloopfour/mobius-carbon
