@@ -37,7 +37,7 @@ typedef __carbon_int64_t           int64_t;
 typedef __carbon_uint64_t          uint64_t;
 
 typedef __carbon_intptr_t          intptr_t;
-typedef __carbon_uintptr_t         uintptr_t;
+typedef __carbon_uintptr_t          uintptr_t ;
 typedef __carbon_natural_t         natural_t;
 typedef __carbon_ptrdiff_t         ptrdiff_t;
 

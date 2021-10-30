@@ -15,7 +15,7 @@
 To build the kernel correctly, first set up a suitable workspace. The requirements are as follows:
 
 - clang
-- lld.ld
+- ld.lld
 - lld-link
 - make
 - cmake
@@ -25,7 +25,7 @@ First, set up the workspace. If you get errors, make sure uefi is symlinked corr
 
 ```Bash
 $ git clone https://github.com/mobiusloopfour/mobius-carbon
-$ cd libsa && ln -s ../EXTERNAL/uefi && cd .. # gcc is required
+$ cd libsa && ln -s ../EXTERNAL/uefi && cd .. # gcc is required. libuefi.a has been prebuilt for clang users.
 $ make configure
 ```
 

@@ -147,7 +147,7 @@ void bootstrap()
 int uefi_init (
     efi_handle_t image, efi_system_table_t *systab
 #ifndef __clang__
-    , uintptr_t ldbase, Elf64_Dyn *dyn
+    , uintptr_t  ldbase, Elf64_Dyn *dyn
 #endif
 ) {
     efi_guid_t shpGuid = EFI_SHELL_PARAMETERS_PROTOCOL_GUID;
@@ -165,7 +165,7 @@ int uefi_init (
 #ifndef __clang__
     long relsz = 0, relent = 0;
     Elf64_Rel *rel = 0;
-    uintptr_t *addr;
+    uintptr_t  *addr;
     /* handle relocations */
     for (i = 0; dyn[i].d_tag != DT_NULL; ++i) {
         switch (dyn[i].d_tag) {
@@ -203,17 +203,17 @@ int uefi_init (
     /* call main */
 #if USE_UTF8
     if(argc && argv) {
-        ret = (argc + 1) * (sizeof(uintptr_t) + 1);
+        ret = (argc + 1) * (sizeof(uintptr_t ) + 1);
         for(i = 0; i < argc; i++)
             for(j = 0; argv[i] && argv[i][j]; j++)
                 ret += argv[i][j] < 0x80 ? 1 : (argv[i][j] < 0x800 ? 2 : 3);
         status = BS->AllocatePool(LIP ? LIP->ImageDataType : EfiLoaderData, ret, (void **)&__argvutf8);
         if(EFI_ERROR(status) || !__argvutf8) { argc = 0; __argvutf8 = NULL; }
         else {
-            s = __argvutf8 + argc * sizeof(uintptr_t);
-            *((uintptr_t*)s) = (uintptr_t)0; s += sizeof(uintptr_t);
+            s = __argvutf8 + argc * sizeof(uintptr_t );
+            *((uintptr_t *)s) = (uintptr_t )0; s += sizeof(uintptr_t );
             for(i = 0; i < argc; i++) {
-                *((uintptr_t*)(__argvutf8 + i * sizeof(uintptr_t))) = (uintptr_t)s;
+                *((uintptr_t *)(__argvutf8 + i * sizeof(uintptr_t ))) = (uintptr_t )s;
                 for(j = 0; argv[i] && argv[i][j]; j++) {
                     if(argv[i][j]<0x80) { *s++ = argv[i][j]; } else
                     if(argv[i][j]<0x800) { *s++ = ((argv[i][j]>>6)&0x1F)|0xC0; *s++ = (argv[i][j]&0x3F)|0x80; } else

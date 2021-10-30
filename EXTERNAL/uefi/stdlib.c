@@ -33,7 +33,7 @@
 int errno = 0;
 static uint64_t __srand_seed = 6364136223846793005ULL;
 extern void __stdio_cleanup();
-static uintptr_t *__stdlib_allocs = NULL;
+static uintptr_t  *__stdlib_allocs = NULL;
 static uintn_t __stdlib_numallocs = 0;
 
 int atoi(const char_t *s)
@@ -86,16 +86,16 @@ void *malloc (size_t __size)
     if(i == __stdlib_numallocs) {
         status = BS->AllocatePool(LIP ? LIP->ImageDataType : EfiLoaderData, __stdlib_numallocs + 2, &ret);
         if(EFI_ERROR(status) || !ret) { errno = ENOMEM; return NULL; }
-        if(__stdlib_allocs) memcpy(ret, __stdlib_allocs, __stdlib_numallocs * sizeof(uintptr_t));
-        __stdlib_allocs = (uintptr_t*)ret;
+        if(__stdlib_allocs) memcpy(ret, __stdlib_allocs, __stdlib_numallocs * sizeof(uintptr_t ));
+        __stdlib_allocs = (uintptr_t *)ret;
         __stdlib_allocs[i] = __stdlib_allocs[i + 1] = 0;
         __stdlib_numallocs += 2;
         ret = NULL;
     }
     status = BS->AllocatePool(LIP ? LIP->ImageDataType : EfiLoaderData, __size, &ret);
     if(EFI_ERROR(status) || !ret) { errno = ENOMEM; ret = NULL; }
-    __stdlib_allocs[i] = (uintptr_t)ret;
-    __stdlib_allocs[i + 1] = (uintptr_t)__size;
+    __stdlib_allocs[i] = (uintptr_t )ret;
+    __stdlib_allocs[i + 1] = (uintptr_t )__size;
     return ret;
 }
 
@@ -112,7 +112,7 @@ void *realloc (void *__ptr, size_t __size)
     efi_status_t status;
     uintn_t i;
     if(!__ptr) return malloc(__size);
-    for(i = 0; i < __stdlib_numallocs && __stdlib_allocs[i] != (uintptr_t)__ptr; i += 2);
+    for(i = 0; i < __stdlib_numallocs && __stdlib_allocs[i] != (uintptr_t )__ptr; i += 2);
     if(i == __stdlib_numallocs) { errno = ENOMEM; return NULL; }
     status = BS->AllocatePool(LIP ? LIP->ImageDataType : EfiLoaderData, __size, &ret);
     if(EFI_ERROR(status) || !ret) { errno = ENOMEM; ret = NULL; }
@@ -121,8 +121,8 @@ void *realloc (void *__ptr, size_t __size)
         if(__size > __stdlib_allocs[i + 1]) memset((uint8_t*)ret + __stdlib_allocs[i + 1], 0, __size - __stdlib_allocs[i + 1]);
     }
     BS->FreePool((void*)__stdlib_allocs[i]);
-    __stdlib_allocs[i] = (uintptr_t)ret;
-    __stdlib_allocs[i + 1] = (uintptr_t)__size;
+    __stdlib_allocs[i] = (uintptr_t )ret;
+    __stdlib_allocs[i + 1] = (uintptr_t )__size;
     return ret;
 }
 
@@ -130,7 +130,7 @@ void free (void *__ptr)
 {
     efi_status_t status;
     uintn_t i;
-    for(i = 0; i < __stdlib_numallocs && __stdlib_allocs[i] != (uintptr_t)__ptr; i += 2);
+    for(i = 0; i < __stdlib_numallocs && __stdlib_allocs[i] != (uintptr_t )__ptr; i += 2);
     if(i == __stdlib_numallocs) { errno = ENOMEM; return; }
     __stdlib_allocs[i] = 0;
     __stdlib_allocs[i + 1] = 0;
@@ -163,10 +163,10 @@ int exit_bs()
     efi_status_t status;
     efi_memory_descriptor_t *memory_map = NULL;
     uintn_t cnt = 3, memory_map_size=0, map_key=0, desc_size=0;
-    if(__stdlib_allocs)
-        BS->FreePool(__stdlib_allocs);
-    __stdlib_numallocs = 0;
-    __stdio_cleanup();
+    //if(__stdlib_allocs)
+    //    BS->FreePool(__stdlib_allocs);
+    //__stdlib_numallocs = 0;
+    //__stdio_cleanup();
     while(cnt--) {
         status = BS->GetMemoryMap(&memory_map_size, memory_map, &map_key, &desc_size, NULL);
         if (status!=EFI_BUFFER_TOO_SMALL) break;

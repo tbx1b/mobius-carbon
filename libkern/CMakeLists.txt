@@ -15,7 +15,7 @@ set(CMAKE_C_COMPILER_TARGET ${triple})
 set(CMAKE_SYSROOT "include")
 
 #configure the linker
-set(CMAKE_C_FLAGS "-c -ffreestanding -fshort-wchar -Ofast -pedantic -Wall -Wno-implicit-int")
+set(CMAKE_C_FLAGS "-c -ffreestanding -fshort-wchar -Ofast -pedantic -Wall -Wno-implicit-int -Wno-unknown-pragmas")
 
 # Building
 add_library(libkern OBJECT ${libkern})

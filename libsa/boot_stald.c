@@ -84,7 +84,7 @@ stald(char *path, bateau_info_struct_t *argv)
     long int size;
     elf64_ehdr_t *elf;
     elf64_phdr_t *phdr;
-    uintptr_t entry;
+    uintptr_t  entry;
     int i;
 
     /* load the file */
@@ -138,13 +138,10 @@ stald(char *path, bateau_info_struct_t *argv)
     printf("ENV ptr: %p\n", argv);
     
     printf("ELF entry point %p\n", entry);
-    //if (exit_bs()) {
-    //    printf("The EFI Boot Services could not be exited. Returning to the EFI shell.");
-    //    return -1;
-    //}
-    // exit_bs();
+
+    exit_bs();
     i = (*((int(* __attribute__((sysv_abi)))(bateau_info_struct_t*))(entry)))(argv);
-    printf("ELF returned %d\n", i);
+    printf("You shouldn't see this\n");
 
     boot_failure_feedback();
     return 0;

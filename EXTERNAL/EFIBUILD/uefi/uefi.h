@@ -51,16 +51,16 @@ typedef unsigned int        uint32_t;
 #ifndef __clang__
 typedef long int            int64_t;
 typedef unsigned long int   uint64_t;
-typedef unsigned long int   uintptr_t;
+typedef unsigned long int   uintptr_t ;
 #else
 typedef long long           int64_t;
 typedef unsigned long long  uint64_t;
-typedef unsigned long long  uintptr_t;
+typedef unsigned long long  uintptr_t ;
 #endif
 #endif
 extern char c_assert1[sizeof(uint32_t) == 4  ? 1 : -1];
 extern char c_assert2[sizeof(uint64_t) == 8  ? 1 : -1];
-extern char c_assert3[sizeof(uintptr_t) == 8 ? 1 : -1];
+extern char c_assert3[sizeof(uintptr_t ) == 8 ? 1 : -1];
 
 #ifndef NULL
 #define NULL ((void*)0)

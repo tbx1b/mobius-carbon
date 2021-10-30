@@ -31,6 +31,8 @@
 #include <carbon/stdint.h>
 #include <carbon/assert.h>
 
+extern os_kern_vm_init(bateau_info_struct_t *aBootTimeEnvironment);
+
 int 
 _start(bateau_info_struct_t *aBootTimeEnvironment) 
 {   
@@ -49,6 +51,8 @@ _start(bateau_info_struct_t *aBootTimeEnvironment)
     }
 
     os_kern_vm_init(aBootTimeEnvironment);
+
+    kprintf("Nothing to do... hanging...\n"); // TODO: When the kernel has user mode programs, reset the screen.
 
     halt: __asm__("hlt"); goto halt;
     return 0;

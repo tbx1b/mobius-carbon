@@ -39,7 +39,7 @@ putc(struct tty_t pinfo, int x, int y, const char *s)
 {
     unsigned char *ptr, *chr, *frg;
     unsigned int c;
-    uintptr_t o, p;
+    uintptr_t  o, p;
     int i, j, k, l, m, n;
     //while(*s) {
         c = 0; s += mbtowc((wchar_t*)&c, (const char*)s, 4);
@@ -52,7 +52,7 @@ putc(struct tty_t pinfo, int x, int y, const char *s)
             else { if((unsigned int)i == c) { chr = ptr; break; } ptr += 6 + ptr[1] * (ptr[0] & 0x40 ? 6 : 5); }
         }
         if(!chr) return;
-        ptr = chr + 6; o = (uintptr_t)(pinfo.lfb) + y * (pinfo.pitch) + x * 4;
+        ptr = chr + 6; o = (uintptr_t )(pinfo.lfb) + y * (pinfo.pitch) + x * 4;
         for(i = n = 0; i < chr[1]; i++, ptr += chr[0] & 0x40 ? 6 : 5) {
             if(ptr[0] == 255 && ptr[1] == 255) continue;
             frg = (unsigned char*)(pinfo.font) + (chr[0] & 0x40 ? ((ptr[5] << 24) | (ptr[4] << 16) | (ptr[3] << 8) | ptr[2]) :

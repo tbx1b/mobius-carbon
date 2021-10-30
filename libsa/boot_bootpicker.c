@@ -56,7 +56,6 @@ int main(void)
         b_info->options[i] = 0;
     }
 
-    efi_status_t status;
     efi_guid_t gopGuid = EFI_GRAPHICS_OUTPUT_PROTOCOL_GUID;
     efi_gop_t *gop = NULL;
     FILE *f;

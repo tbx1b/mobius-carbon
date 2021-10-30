@@ -38,7 +38,7 @@ typedef long long               __carbon_int64_t;
 typedef unsigned long long      __carbon_uint64_t;
 
 typedef long                    __carbon_intptr_t;
-typedef unsigned long long      __carbon_uintptr_t;
+typedef unsigned long long      __carbon_uintptr_t ;
 typedef unsigned int            __carbon_natural_t;
 
 typedef long                    __carbon_ptrdiff_t;

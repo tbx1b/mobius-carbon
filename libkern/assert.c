@@ -32,11 +32,14 @@ assert(_Bool condition, const char *s)
 
         tty_dbg_color(0xFF0000); // red
 
-        kprintf("Assertion failed: ");
+        kprintf("\nAssertion failed: ");
         kprintf(s);
         kprintf("\n");
-        //__asm__("cli");
-        //halt: __asm__("hlt"); goto halt;
+        kprintf("-> Continuing\n");
+
+        tty_dbg_color(0xFFFFFF); 
+        __asm__("cli");
+        halt: __asm__("hlt"); goto halt;
         return 0;
     }
     return 1;
