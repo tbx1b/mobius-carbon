@@ -125,6 +125,7 @@ void os_vm_read_memmap(efi_descriptor_t* memmap, size_t memmap_size, size_t memm
             os_vm_release_m((uintptr_t)desc->physical_address, desc->page_count);
         }
     }
+    os_vm_reserve_m(0, 0x100);
     os_vm_lock_m((uintptr_t)&__private_bmp, __private_bmp.size / 0x1000 + 1);
 }
 
