@@ -35,6 +35,7 @@ INTERNALCFLAGS :=            \
 	-mno-sse2            \
 	-mno-red-zone        \
     -MMD				\
+	-fno-builtin 		\
 	-Wno-implicit-int
  
 # Internal linker flags that should not be changed by the user.
@@ -48,7 +49,7 @@ INTERNALLDFLAGS :=             \
 	-ztext
  
 # Use find to glob all *.c files in the directory and extract the object names.
-CFILES := $(shell find ./ ../hal/$(TARGET) -type f -name '*.c')
+CFILES := $(shell find ./ ../std ../hal/$(TARGET) -type f -name '*.c')
 OBJ := $(CFILES:.c=.o)
 HEADER_DEPS := $(CFILES:.c=.d)
  

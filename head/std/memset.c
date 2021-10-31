@@ -9,7 +9,7 @@
 
 #include <Carbon.h>
 
-#define	wsize	sizeof(unsigned int)
+#define	wsize	sizeof(dlongword)
 #define	wmask	(wsize - 1)
 
 // n.b. this must be compiled with -fno-builtin or it might get optimized into
@@ -30,7 +30,7 @@ handle carbonapi
 memset(void *dst0, int c0, size_t length)
 {
 	size_t t;
-	unsigned int c;
+	dlongword c;
 	unsigned char *dst;
 
 	dst = dst0;
@@ -70,7 +70,7 @@ memset(void *dst0, int c0, size_t length)
 	/* Fill words.  Length was >= 2*words so we know t >= 1 here. */
 	t = length / wsize;
 	do {
-		*(unsigned int *)dst = WIDEVAL;
+		*(dlongword *)dst = WIDEVAL;
 		dst += wsize;
 	} while (--t != 0);
 
