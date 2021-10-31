@@ -10,11 +10,11 @@
 
 /* INCLUDES *****************************************************************/
 
-#include <Carbon.h>
+#include <Hal.h>
 
 /* GLOBALS ******************************************************************/
 
-carbonapi _Noreturn any halhalt(void);
+halapi _Noreturn any halhalt(void);
 
 #endif /* __HAL_POWER_H__ */
 /* EOF */ 

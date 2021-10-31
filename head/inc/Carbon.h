@@ -19,5 +19,7 @@
 #include "Power.h"
 #include "Console.h"
 
+extern handle carbonapi memset(void *dst0, int c0, size_t length);
+
 #endif
 /* EOF */

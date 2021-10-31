@@ -4,6 +4,9 @@
  * PURPOSE:     Standard width integers and types
  * COPYRIGHT:   Copyright 2021 MobiusLoopFour
  */
+
+/* GLOBALS ******************************************************************/
+
 #ifndef __HALDEFS_H__
 #define __HALDEFS_H__
 

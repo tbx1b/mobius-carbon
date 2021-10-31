@@ -7,15 +7,19 @@
 
 /* INCLUDES *****************************************************************/
 
-#include "HalPower.h"
+#include <Carbon.h>
 #include <Hal.h>
 
-/* GLOBALS ******************************************************************/
-
-halapi _Noreturn any halhalt()
+halapi 
+HalOnCall(HalCall call)
 {
-    for (;;) {
-        __asm__("hlt");
+    switch (call) {
+        case Main: {
+            return HAL_ERR_UNIMPLEMENTED;
+        }
+        default: {
+            return HAL_ERR_UNIMPLEMENTED;
+        }
     }
 }
 /* EOF */
