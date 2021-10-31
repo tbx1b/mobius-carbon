@@ -8,6 +8,7 @@
 | libkern | Basic utility functions for use in the kernel |
 | libsa | Bootstrap code (the boot loader is named Bateau) |
 | osck | Carbon subsystem |
+| pexpert | Platform specifics |
 | rootfs | QEMU sandbox |
 
 # Building a kernel
