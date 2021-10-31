@@ -31,7 +31,7 @@
 static uint64_t __private_free_mem;
 static uint64_t __private_reserved_mem;
 static uint64_t __private_used_mem;
-static bool __private_initliazed = false;
+static bool __private_initialized  = false;
 struct os_vm_page_frame_alloc_t universal_allocator;
 static os_vm_bitset_t __private_bmp;
 
@@ -89,9 +89,9 @@ os_vm_set(os_vm_bitset_t *b, uint64_t index, uint8_t value)
 
 void os_vm_read_memmap(efi_descriptor_t* memmap, size_t memmap_size, size_t memmap_desc_size)
 {
-    if (__private_initliazed) return;
+    if (__private_initialized ) return;
 
-    __private_initliazed = true;
+    __private_initialized  = true;
 
     uint64_t entries = memmap_size / memmap_desc_size;
 

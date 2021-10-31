@@ -4,9 +4,10 @@ rwildcard=$(foreach d,$(wildcard $(1:=/*)),$(call rwildcard,$d,$2) $(filter $(su
 
 LIBKERN_O = $(call rwildcard, libkern/build/CMakeFiles/libkern.dir, *.o)
 OSCK_O = $(call rwildcard, osck/build/CMakeFiles/kernel.dir, *.o)
+ARCH_O = $(call rwildcard, pexpert/build/CMakeFiles/kernel.dir, *.o)
 
 # all
-OBJ_FILES = $(LIBKERN_O) $(OSCK_O)
+OBJ_FILES = $(LIBKERN_O) $(OSCK_O) $(ARCH_O)
 
 .PHONY : all
 all: obj
@@ -16,12 +17,14 @@ all: obj
 obj:
 	@make -C libsa
 	@make -C osck
+	@make -C pexpert
 	@make -C libkern
 
 .PHONY : clean
 clean:
 	@make -C libsa clean
 	@make -C osck clean
+	@make -C pexpert clean
 	@make -C libkern clean
 
 .PHONY : qemu
@@ -46,6 +49,7 @@ push: release_ready
 .PHONY : rebuild_cache
 rebuild_cache:
 	@make -C osck rebuild_cache
+	@make -C pexpert rebuild_cache
 	@make -C libkern rebuild_cache
 	@make clean
 
