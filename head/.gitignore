@@ -1,0 +1,11 @@
+*.json
+*.o
+.DS_Store
+.vscode
+*.d
+com.*
+*.EFI
+*.bin
+*.sys
+limine-install*
+.cache

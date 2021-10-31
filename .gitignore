@@ -2,8 +2,7 @@
 .cache
 .vscode
 *.o
-*.lib
-a.out
-*.pcsw
-build
-*.zip
+*.d
+*.iso
+*.json
+com.mobius*
