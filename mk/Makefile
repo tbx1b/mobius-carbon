@@ -8,13 +8,14 @@ include Makefil00
 CFLAGS := -I../src/head \
 			-I../src/osck/$(TARGET)/sys \
 			-I../src/osck/sys \
+			-I../src/osck/$(TARGET)/sys \
             -std=c17 \
 			-ffreestanding -nostdlib -fno-builtin -fno-stack-protector \
 			-mno-red-zone -mno-red-zone -fno-builtin \
 			-Wno-implicit-int -O2 -lgcc
 ASFLAGS := -O2
 LDFLAGS := -T../mk/lnk.lds -nostdlib
-CFILES := $(shell find ../src/osck/$(TARGET) ../src/stand/$(TARGET) -type f -name '*.c')
+CFILES := $(shell find ../src/osck/$(TARGET) ../src/lib ../src/stand/$(TARGET) -type f -name '*.c')
 ASFILES := $(shell find ../src/osck/$(TARGET) ../src/stand/$(TARGET) -type f -name '*.s')
 OBJ := $(CFILES:.c=.o) $(ASFILES:.s=.s.o)
 HEADER_DEPS := $(CFILES:.c=.d)
