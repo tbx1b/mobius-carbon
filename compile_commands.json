@@ -1,0 +1,27 @@
+[
+    {
+        "command": "cc -c -I../src/head -I../src/osck/i686/sys -I../src/osck/sys -std=c17 -ffreestanding -nostdlib -fno-builtin -fno-stack-protector -mno-red-zone -mno-red-zone -fno-builtin -Wno-implicit-int -O2 -o ../src/osck/i686/io.o ../src/osck/i686/io.c",
+        "directory": "/root/mk",
+        "file": "/root/src/osck/i686/io.c"
+    },
+    {
+        "command": "cc -c -I../src/head -I../src/osck/i686/sys -I../src/osck/sys -std=c17 -ffreestanding -nostdlib -fno-builtin -fno-stack-protector -mno-red-zone -mno-red-zone -fno-builtin -Wno-implicit-int -O2 -o ../src/osck/i686/main.o ../src/osck/i686/main.c",
+        "directory": "/root/mk",
+        "file": "/root/src/osck/i686/main.c"
+    },
+    {
+        "command": "cc -c -I../src/head -I../src/osck/i686/sys -I../src/osck/sys -std=c17 -ffreestanding -nostdlib -fno-builtin -fno-stack-protector -mno-red-zone -mno-red-zone -fno-builtin -Wno-implicit-int -O2 -o ../src/osck/i686/print.o ../src/osck/i686/print.c",
+        "directory": "/root/mk",
+        "file": "/root/src/osck/i686/print.c"
+    },
+    {
+        "command": "cc -c -I../src/head -I../src/osck/i686/sys -I../src/osck/sys -std=c17 -ffreestanding -nostdlib -fno-builtin -fno-stack-protector -mno-red-zone -mno-red-zone -fno-builtin -Wno-implicit-int -O2 -o ../src/osck/i686/string.o ../src/osck/i686/string.c",
+        "directory": "/root/mk",
+        "file": "/root/src/osck/i686/string.c"
+    },
+    {
+        "command": "cc -c -I../src/head -I../src/osck/i686/sys -I../src/osck/sys -std=c17 -ffreestanding -nostdlib -fno-builtin -fno-stack-protector -mno-red-zone -mno-red-zone -fno-builtin -Wno-implicit-int -O2 -o ../src/osck/i686/tty.o ../src/osck/i686/tty.c",
+        "directory": "/root/mk",
+        "file": "/root/src/osck/i686/tty.c"
+    }
+]

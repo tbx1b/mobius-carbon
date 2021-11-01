@@ -1,0 +1,14 @@
+#########################################################################
+#	file: 		Makefil01												#
+#	brief: 		Compile the kernel										#
+#	author: 	mobiusloop4												#
+#	license:	default													#
+#########################################################################
+TARGET := i686
+PROJECT := syscbk
+CC := $(TARGET)-elf-gcc
+AS := $(TARGET)-elf-as
+LD := $(TARGET)-elf-gcc
+BLDIR := ../mk/rootfs
+STRIP := $(TARGET)-elf-strip
+# EOF

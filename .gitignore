@@ -1,8 +1,9 @@
 .DS_Store
-.cache
-.vscode
+.a.out
+*.iso
 *.o
 *.d
-*.iso
+limine
 *.json
-com.mobius*
+syscbk
+*.vscode*
