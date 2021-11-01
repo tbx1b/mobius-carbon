@@ -7,3 +7,4 @@ limine
 *.json
 syscbk
 *.vscode*
+.bash_history
