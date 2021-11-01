@@ -7,9 +7,8 @@
 
 /* INCLUDES *******************************************************************/
 
-#include <cdef.h>
-#include <string.h>
-#include "tty.h"
+#include <Carbon.h>
+#include <Hal.h>
 
 /* PRIVATE FUNCTIONS **********************************************************/
 
@@ -45,11 +44,11 @@ printnum(
 	return nprinted;
 }
 
-boolean       _doprnt_truncates = FALSE;
+static boolean       _doprnt_truncates = FALSE;
 
 static void putc(int c, void * arg)
 {
-	tty_put((char)c);
+	hal_tty_put((char)c);
 }
 
 static int

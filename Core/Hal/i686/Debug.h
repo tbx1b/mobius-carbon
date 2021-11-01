@@ -5,13 +5,10 @@
  * COPYRIGHT:       Copyright MobiusLoopFour
  */
 
-/* INCLUDES *******************************************************************/
-
-#include <cdef.h>
 
 /* GLOBAL FUNCTIONS ***********************************************************/
 
-void    tty_write(char *c);
-void    tty_clear();
-void    tty_put(char c);
+void    hal_tty_write(char *c);
+void    hal_tty_clear();
+void    hal_tty_put(char c);
 /* EOF */

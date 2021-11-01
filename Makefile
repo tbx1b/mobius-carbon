@@ -1,15 +1,15 @@
 all:
-	@bear -- make -C mk all
+	@bear -- make -C Make all
 
 clean:
-	@make -C mk clean
+	@make -C Make clean
 
 iso:
-	@cd mk && ./imag.sh
+	@cd Make && ./imag.sh
 	@echo "Return to host to emulate"
 
 run:
-	qemu-system-i386 mk/image.iso
+	qemu-system-i386 Make/image.iso
 
 .PHONY : all
 .PHONY : clean

@@ -7,8 +7,8 @@
 
 /* INCLUDES *******************************************************************/
 
-#include <cdef.h>
-#include "ioctl.h"
+#include <Core.h>
+#include "IO.h"
 
 static dword cursor_y;
 static dword cursor_x;
@@ -20,10 +20,10 @@ static void
 move_cursor()
 {
    word cursor_location = cursor_y * 80 + cursor_x;
-   outb(0x3D4, 14);
-   outb(0x3D5, cursor_location >> 8);
-   outb(0x3D4, 15);
-   outb(0x3D5, cursor_location);
+   hal_io_outb(0x3D4, 14);
+   hal_io_outb(0x3D5, cursor_location >> 8);
+   hal_io_outb(0x3D4, 15);
+   hal_io_outb(0x3D5, cursor_location);
 }
 
 static void 
@@ -51,7 +51,7 @@ scroll()
 /* GLOBAL FUNCTIONS ***********************************************************/
 
 void 
-tty_put(char c)
+hal_tty_put(char c)
 {
    byte bg_color = 0;
    byte fg_color = 15;
@@ -92,7 +92,7 @@ tty_put(char c)
 }
 
 void 
-tty_clear()
+hal_tty_clear()
 {
    byte attribute = (0 /*black*/ << 4) | (15 /*white*/ & 0x0F);
    word blank = 0x20 /* space */ | (attribute << 8);
@@ -109,12 +109,12 @@ tty_clear()
 }
 
 void 
-tty_write(char *c)
+hal_tty_write(char *c)
 {
    int i = 0;
    while (c[i])
-   {
-       tty_put(c[i++]);
-   }
+    {
+        hal_tty_put(c[i++]);
+    }
 }
 /* EOF */

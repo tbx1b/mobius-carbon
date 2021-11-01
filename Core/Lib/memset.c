@@ -30,8 +30,7 @@
  * SUCH DAMAGE.
  */
 
-#include <string.h>
-#include <cdef.h>
+#include <Carbon.h>
 
 #define	wsize	sizeof(dword)
 #define	wmask	(wsize - 1)

@@ -5,10 +5,10 @@
 #	license:	default													#
 #########################################################################
 TARGET := i686
-PROJECT := syscbk
+PROJECT := vmcarbouz
 CC := $(TARGET)-elf-gcc
 AS := $(TARGET)-elf-as
 LD := $(TARGET)-elf-gcc
-BLDIR := ../mk/rootfs
+BLDIR := ../Make/Root\ File\ System
 STRIP := $(TARGET)-elf-strip
 # EOF

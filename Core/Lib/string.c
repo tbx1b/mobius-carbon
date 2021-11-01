@@ -1,4 +1,4 @@
-#include <cdef.h>
+#include <Carbon.h>
 /* Magic numbers for the algorithm */
 static const unsigned long mask01 = 0x01010101;
 static const unsigned long mask80 = 0x80808080;

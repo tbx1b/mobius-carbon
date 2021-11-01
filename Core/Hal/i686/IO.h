@@ -10,13 +10,13 @@
 #ifndef io_h_
 #define io_h_
 
-#include <cdef.h>
+#include <Carbon.h>
 
 /* GLOBAL FUNCTIONS ***********************************************************/
 
-void    outb(word port, byte value);
-byte    inb(word port);
-byte    inw(word port);
+void    hal_io_outb(word port, byte value);
+byte    hal_io_inb(word port);
+byte    hal_io_inw(word port);
 
 #endif /*! io_h */
 /* EOF */

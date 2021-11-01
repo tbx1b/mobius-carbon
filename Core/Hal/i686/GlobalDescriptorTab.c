@@ -7,9 +7,9 @@
 
 /* INCLUDES *******************************************************************/
 
-#include <cdef.h>
-#include <string.h>
-#include <hal.h>
+#include <Core.h>
+#include <Carbon.h>
+#include <Hal.h>
 
 /* PRIVATE DATA STRUCTURES ****************************************************/
 

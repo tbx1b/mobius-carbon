@@ -1,7 +1,8 @@
 #ifndef string_h_
 #define string_h_
 
-#include "cdef.h"
+#include "Core.h"
+#include "stdio.h"
 
 size_t strlen(const char *str);
 

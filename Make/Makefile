@@ -5,29 +5,31 @@
 #	license:	default													#
 #########################################################################
 include Makefil00
-CFLAGS := -I../src/head \
-			-I../src/osck/$(TARGET)/sys \
-			-I../src/osck/sys \
-			-I../src/osck/$(TARGET)/sys \
+CFLAGS := -I../Core/Include \
             -std=c17 \
 			-ffreestanding -nostdlib -fno-builtin -fno-stack-protector \
 			-mno-red-zone -mno-red-zone -fno-builtin \
 			-Wno-implicit-int -O2 -lgcc
 ASFLAGS := -O2
-LDFLAGS := -T../mk/lnk.lds -nostdlib
-CFILES := $(shell find ../src/osck/$(TARGET) ../src/lib ../src/stand/$(TARGET) -type f -name '*.c')
-ASFILES := $(shell find ../src/osck/$(TARGET) ../src/stand/$(TARGET) -type f -name '*.s')
+LDFLAGS := -T../Make/lnk.lds -nostdlib
+CFILES := $(shell find \
+						../Core/Kernel \
+						../Core/Lib \
+						../Core/Hal/$(TARGET) \
+						-type f -name '*.c')
+ASFILES := $(shell find \
+						../Core/Hal/$(TARGET) \
+						-type f -name '*.s')
 OBJ := $(CFILES:.c=.o) $(ASFILES:.s=.s.o)
 HEADER_DEPS := $(CFILES:.c=.d)
 #########################################################################
 all : $(PROJECT)
 .PHONY : all
-	mkdir -p $(BLDIR)
-	multiboot.sh
+	mkdir -p $(BLDIR)/boot
 
 $(PROJECT) : $(OBJ)
-	$(LD) $(OBJ) $(LDFLAGS) -o $(BLDIR)/$@
-	$(STRIP) --strip-all $(BLDIR)/$@
+	$(LD) $(OBJ) $(LDFLAGS) -o $(BLDIR)/boot/$@
+	$(STRIP) --strip-all $(BLDIR)/boot/$@
 #########################################################################
 # Compilation rules for *.c and *.s files.
 -include $(HEADER_DEPS)
