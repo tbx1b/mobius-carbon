@@ -15,12 +15,16 @@ LDFLAGS := -T../dwb/lnk.lds -nostdlib
 CFILES := $(shell find \
 						../sys \
 						../lib \
+						../hil \
 						../hal$(TARGET) \
 						-type f -name '*.c')
 ASFILES := $(shell find \
 						../hal$(TARGET) \
 						-type f -name '*.s')
-OBJ := $(CFILES:.c=.o) $(ASFILES:.s=.s.o)
+NASMFILES := $(shell find \
+						../hal$(TARGET) \
+						-type f -name '*.a')
+OBJ := $(CFILES:.c=.o) $(ASFILES:.s=.s.o) $(NASMFILES:.a=.a.o)
 HEADER_DEPS := $(CFILES:.c=.d)
 #########################################################################
 all : $(PROJECT)
@@ -35,6 +39,9 @@ $(PROJECT) : $(OBJ)
 -include $(HEADER_DEPS)
 %.o: %.c 
 	$(CC) $(CFLAGS) -c $< -o $@
+
+%.a.o: %.a
+	$(NASM) -felf32 $< -o $@
 
 %.s.o: %.s
 	$(AS) $(ASFLAGS) $< -o $@

@@ -8,6 +8,7 @@ TARGET := i686
 PROJECT := vmcarbouz
 CC := $(TARGET)-elf-gcc
 AS := $(TARGET)-elf-as
+NASM := nasm
 LD := $(TARGET)-elf-gcc
 BLDIR := ../dwb/rootfs
 STRIP := $(TARGET)-elf-strip

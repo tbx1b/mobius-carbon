@@ -1,11 +1,11 @@
 all:
-	@bear -- make -C dwb all
+	make -C dwb all
 
 clean:
 	@make -C dwb clean
 
 iso:
-	@cd Make && ./imag.sh
+	@cd dwb && ./imag.sh
 	@echo "Return to host to emulate"
 
 run:
