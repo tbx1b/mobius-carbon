@@ -5,10 +5,13 @@
  * COPYRIGHT:       Copyright MobiusLoopFour
  */
 
+#ifndef termio_h_
+#define termio_h_
 
 /* GLOBAL FUNCTIONS ***********************************************************/
 
-void    hal_tty_write(char *c);
-void    hal_tty_clear();
-void    hal_tty_put(char c);
+void    hal_termio_write(char *c);
+void    hal_termio_clear();
+void    hal_termio_put(char c);
+#endif /*! termio_h_ */
 /* EOF */

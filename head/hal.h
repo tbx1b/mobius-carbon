@@ -1,7 +1,7 @@
 #ifndef hal_h_
 #define hal_h_
 
-#include "Carbon.h"
+#include "carbon.h"
 
 /* GLOBAL FUNCTIONS ***********************************************************/
 
@@ -17,7 +17,7 @@ extern void    hal_io_outb(word port, byte value);
 
 extern byte    hal_io_inb(word port);
 
-extern byte    hal_io_inw(word port);
+extern word    hal_io_inw(word port);
 
 /*! --- 
  *
@@ -28,10 +28,10 @@ extern byte    hal_io_inw(word port);
  */
 
 
-extern void    hal_tty_write(char *c);
+extern void    hal_termio_write(char *c);
 
-extern void    hal_tty_clear();
+extern void    hal_termio_clear();
 
-extern void    hal_tty_put(char c);
+extern void    hal_termio_put(char c);
 
 #endif /* hal_h_ */

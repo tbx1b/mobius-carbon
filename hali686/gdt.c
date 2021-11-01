@@ -7,9 +7,9 @@
 
 /* INCLUDES *******************************************************************/
 
-#include <Core.h>
-#include <Carbon.h>
-#include <Hal.h>
+#include <sys.h>
+#include <carbon.h>
+#include <hal.h>
 
 /* PRIVATE DATA STRUCTURES ****************************************************/
 
@@ -20,12 +20,12 @@ typedef struct gdt_descriptor {
 	byte			flags;
 	byte			grand;
 	byte			base_hi;
-} __attribute__((packed)) hal_i686_gdt_descriptor_t;
+} __attribute__((packed)) hal_gdt_descriptor_t;
 
 typedef struct gdt_r {
     word    limit;
     dword    base;
-} __attribute__((packed)) hal_i686_gdt_r_t;
+} __attribute__((packed)) hal_gdt_r_t;
 
 #define MAX_DESCRIPTORS					3
 #define i686_GDT_DESC_ACCESS			0x0001			//00000001
@@ -40,20 +40,20 @@ typedef struct gdt_r {
 #define i686_GDT_GRAND_32BIT			0x40			//01000000
 #define i686_GDT_GRAND_4K			    0x80			//10000000
 
-static hal_i686_gdt_descriptor_t _gdt[3];
+static hal_gdt_descriptor_t _gdt[3];
 
-static hal_i686_gdt_r_t   _gdtr;
+static hal_gdt_r_t   _gdtr;
 
 /* PRIVATE FUNCTIONS **********************************************************/
 
 static void 
-hal_i686_gdt_install()
+hal_gdt_install()
 {
     __asm volatile("lgdt (%0)" :: "r" (&_gdtr));
 }
 
 static void
-hal_i686_gdt_set_descr(
+hal_gdt_set_descr(
     dword i, 
     unsigned long long base,
     unsigned long long limit,
@@ -64,7 +64,7 @@ hal_i686_gdt_set_descr(
         return;
 
     /* null the desc */
-    memset((void*)&_gdt[i], 0, sizeof(hal_i686_gdt_descriptor_t));
+    memset((void*)&_gdt[i], 0, sizeof(hal_gdt_descriptor_t));
 
 #define gi _gdt[i]
     /* limit & base addrs */
@@ -81,12 +81,12 @@ hal_i686_gdt_set_descr(
 
 /* GLOBAL FUNCTIONS ***********************************************************/
 
-hal_i686_gdt_init()
+hal_gdt_init()
 {
-    _gdtr.limit     = (sizeof(hal_i686_gdt_descriptor_t) * MAX_DESCRIPTORS) - 1;
+    _gdtr.limit     = (sizeof(hal_gdt_descriptor_t) * MAX_DESCRIPTORS) - 1;
     _gdtr.base      = (dword)&_gdt[0];
 
-#define set(a,b,c,d,e) hal_i686_gdt_set_descr(a,b,c,d,e)
+#define set(a,b,c,d,e) hal_gdt_set_descr(a,b,c,d,e)
     /* null descriptor */
     set(0, 0, 0, 0, 0);
 
@@ -105,7 +105,7 @@ hal_i686_gdt_init()
     );
 #undef set
 
-    hal_i686_gdt_install();
+    hal_gdt_install();
     return 0;
 }
 /* ! EOF */

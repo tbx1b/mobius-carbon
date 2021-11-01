@@ -48,7 +48,7 @@ static boolean       _doprnt_truncates = FALSE;
 
 static void putc(int c, void * arg)
 {
-	hal_tty_put((char)c);
+	hal_termio_put((char)c);
 }
 
 static int

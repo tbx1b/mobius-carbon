@@ -9,6 +9,6 @@ PROJECT := vmcarbouz
 CC := $(TARGET)-elf-gcc
 AS := $(TARGET)-elf-as
 LD := $(TARGET)-elf-gcc
-BLDIR := ../Make/Root\ File\ System
+BLDIR := ../dwb/rootfs
 STRIP := $(TARGET)-elf-strip
 # EOF

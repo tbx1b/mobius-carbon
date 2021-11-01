@@ -5,20 +5,20 @@
 #	license:	default													#
 #########################################################################
 include Makefil00
-CFLAGS := -I../Core/Include \
+CFLAGS := -I../head \
             -std=c17 \
 			-ffreestanding -nostdlib -fno-builtin -fno-stack-protector \
 			-mno-red-zone -mno-red-zone -fno-builtin \
 			-Wno-implicit-int -O2 -lgcc
 ASFLAGS := -O2
-LDFLAGS := -T../Make/lnk.lds -nostdlib
+LDFLAGS := -T../dwb/lnk.lds -nostdlib
 CFILES := $(shell find \
-						../Core/Kernel \
-						../Core/Lib \
-						../Core/Hal/$(TARGET) \
+						../sys \
+						../lib \
+						../hal$(TARGET) \
 						-type f -name '*.c')
 ASFILES := $(shell find \
-						../Core/Hal/$(TARGET) \
+						../hal$(TARGET) \
 						-type f -name '*.s')
 OBJ := $(CFILES:.c=.o) $(ASFILES:.s=.s.o)
 HEADER_DEPS := $(CFILES:.c=.d)

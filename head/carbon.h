@@ -1,8 +1,9 @@
-#ifndef string_h_
-#define string_h_
+#ifndef carbon_h_
+#define carbon_h_
 
-#include "Core.h"
+#include "sys.h"
 #include "stdio.h"
+#include "hal.h"
 
 size_t strlen(const char *str);
 

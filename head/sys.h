@@ -1,5 +1,5 @@
-#ifndef CarbonDef_h_
-#define CarbonDef_h_
+#ifndef sys_h_
+#define sys_h_
 
 /* general use */
 typedef unsigned int    uint32;
@@ -68,5 +68,5 @@ typedef __builtin_va_list __gnuc_va_list;
 #endif
 
 
-#endif /* CarbonDef_h_ */
+#endif /* sys_h_ */
 /* EOF */

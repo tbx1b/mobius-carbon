@@ -7,8 +7,8 @@
 
 /* INCLUDES *******************************************************************/
 
-#include <Core.h>
-#include "IO.h"
+#include <sys.h>
+#include "ioctl.h"
 
 static dword cursor_y;
 static dword cursor_x;
@@ -51,7 +51,7 @@ scroll()
 /* GLOBAL FUNCTIONS ***********************************************************/
 
 void 
-hal_tty_put(char c)
+hal_termio_put(char c)
 {
    byte bg_color = 0;
    byte fg_color = 15;
@@ -92,7 +92,7 @@ hal_tty_put(char c)
 }
 
 void 
-hal_tty_clear()
+hal_termio_clear()
 {
    byte attribute = (0 /*black*/ << 4) | (15 /*white*/ & 0x0F);
    word blank = 0x20 /* space */ | (attribute << 8);
@@ -109,12 +109,12 @@ hal_tty_clear()
 }
 
 void 
-hal_tty_write(char *c)
+hal_termio_write(char *c)
 {
    int i = 0;
    while (c[i])
     {
-        hal_tty_put(c[i++]);
+        hal_termio_put(c[i++]);
     }
 }
 /* EOF */
