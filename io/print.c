@@ -5,26 +5,8 @@
 #define RETURN return(0)
 
 typedef (*termbuf_t)(char *str, size_t len);
-typedef struct stivale2_struct *standenv_t;
 static _ready = 0;
 static termbuf_t termio;
-
-uintptr_t stivale2_get_tag(e, id) 
-standenv_t e;
-uint64_t id; {
-    struct stivale2_tag *current_tag = (void *)e->tags;
-    for (;;) {
-        if (current_tag == 0) {
-            return 0;
-        }
-
-        if (current_tag->identifier == id) {
-            return (uintptr_t)current_tag;
-        }
-
-        current_tag = (uintptr_t)current_tag->next;
-    }
-}
 
 init_tty(t) 
 struct stivale2_struct *t; {
