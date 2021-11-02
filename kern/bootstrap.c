@@ -1,8 +1,10 @@
 #include <stdint.h>
 #include <stddef.h>
+
 #include <cpu.h>
 #include <debug/trace.h>
 #include <stand/stivale2.h>
+#include <io/io.h>
  
 static uint8_t stack[8192];
 
@@ -40,8 +42,6 @@ announce()
 
 void _start(env) 
 struct stivale2_struct *env; {
-
-    extern init_tty(struct stivale2_struct *e);
     init_tty(env);
 
     announce();

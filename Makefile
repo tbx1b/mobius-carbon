@@ -1,5 +1,6 @@
 include conf/arch
 include conf/cflags
+include conf/cppflags
 include conf/ldflags
 
 include i386/i386.mk
@@ -7,6 +8,7 @@ include kern/kern.mk
 include libc/libc.mk
 include debug/debug.mk
 include io/io.mk
+include vm/vm.mk
 
 include conf/toolchain.mk
 include conf/rules.mk
@@ -19,6 +21,7 @@ DEPS := \
 			$(STAND_DEP_FILES) \
 			$(TERMIO_DEP_FILES) \
 			$(DEBUG_DEP_FILES) \
+			$(VM_DEP_FILES) \
 			$(IO_DEP_FILES)
 
 OBJ := \
@@ -28,6 +31,7 @@ OBJ := \
 			$(STAND_OBJ_FILES) \
 			$(TERMIO_OBJ_FILES) \
 			$(DEBUG_OBJ_FILES) \
+			$(VM_OBJ_FILES) \
 			$(IO_OBJ_FILES)
 
 #########################################################################

@@ -10,3 +10,4 @@ limine-instal*
 *.iso
 .vscode
 .DS_Store
+*.json

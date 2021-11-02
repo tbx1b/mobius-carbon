@@ -1,12 +1,38 @@
-#include <stand/stivale2.h>
 #include <stddef.h>
+#include <stdarg.h>
+
+#include <stand/stivale2.h>
 #include <libc/string.h>
+#include <libc/stdlib.h>
 
 #define RETURN return(0)
+
+#define PRINTF_BUFFER 20
 
 typedef (*termbuf_t)(char *str, size_t len);
 static _ready = 0;
 static termbuf_t termio;
+
+sprintf(c, len)
+char c[]; {
+    if (!_ready) return;
+    termio(c, len);
+    RETURN;
+}
+
+#define itod(x) ((char)x+'0')
+#define H(FUNCTOR,to) \
+    do {        \
+        tmp[0] = FUNCTOR(va_arg(args, to)); \
+        termio(&tmp[0], 1); \
+    } while (0);
+
+#define Hxtox(FUNCTOR,to) \
+    do { \
+        char tmp2[PRINTF_BUFFER]; \
+        FUNCTOR(va_arg(args, to), tmp2);\
+        termio(tmp2, PRINTF_BUFFER); \
+    } while (0)
 
 init_tty(t) 
 struct stivale2_struct *t; {
@@ -31,71 +57,21 @@ struct stivale2_struct *t; {
     RETURN;
 }
 
-sprintf(c, len)
-char c[];
-int len; {
-    if (!_ready) return;
-    termio(c, len);
-    RETURN;
-}
-
-#define itod(x) ((char)x+'0')
-#define H(FUNCTOR) \
-    do {        \
-        tmp[0] = FUNCTOR(x1); \
-        termio(&tmp[0], 1); \
-    } while (0);
-
-#define Hxtox(FUNCTOR) \
-    do { \
-        char tmp2[10]; \
-        FUNCTOR(x1, tmp2);\
-        termio(tmp2, 10); \
-    } while (0)
-
-itoa(n, s)
-char s[]; {
-    int i, sign;
-
-    if ((sign = n) < 0)  /* record sign */
-        n = -n;          /* make n positive */
-    i = 0;
-    do {
-        s[i++] = n % 10 + '0';
-    } while ((n /= 10) > 0);
-    if (sign < 0)
-        s[i++] = '-';
-    s[i] = '\0';
-    reverse(s);
-    RETURN;
-}
-
-reverse(s)
-char s[]; {
-    int i, j;
-    char c;
- 
-    for (i = 0, j = strlen(s)-1; i<j; i++, j--) {
-        c = s[i];
-        s[i] = s[j];
-        s[j] = c;
-    }
-    return(0);
-}
-
-printf(fmt, x1, x2, x3, x4, x5, x6)
-char fmt[]; {
+_io_printf(char fmt[], ...) {
     int cnt;
     char c;
     char tmp[1];
+    va_list args;
+    
     cnt=0;
+    va_start(args, fmt);
     if (!_ready) return;
     do {
         if (*fmt!='%') {termio(&fmt[0], 1); continue;}
         fmt++;
         switch (*fmt) {
         case 'd' : {
-            Hxtox(itoa);
+            Hxtox(itoa, int);
             break;
         }
         case '%' :
@@ -108,6 +84,8 @@ char fmt[]; {
         }
     } while(*fmt++);
 
+    va_end(args);
     RETURN;
 }
 #undef H
+/* eof */

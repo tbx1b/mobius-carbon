@@ -1,0 +1,10 @@
+CPPFLAGS :=                 \
+	-I.                     \
+	-I./$(ARCH)             \
+	-ffreestanding          \
+	-fno-stack-protector    \
+	-fpie                   \
+	-mno-red-zone           \
+    -MMD					\
+	-Wno-return-type		\
+	-Wno-implicit-int
