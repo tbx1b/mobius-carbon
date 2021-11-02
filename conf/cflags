@@ -1,0 +1,11 @@
+CFLAGS :=                   \
+	-I.                     \
+	-I./$(ARCH)             \
+	-std=c89                \
+	-ffreestanding          \
+	-fno-stack-protector    \
+	-fpie                   \
+	-mno-red-zone           \
+    -MMD					\
+	-Wno-return-type		\
+	-Wno-implicit-int

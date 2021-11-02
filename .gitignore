@@ -1,12 +1,12 @@
-.DS_Store
-.a.out
-*.iso
+build
 *.o
 *.d
-limine
-*.json
-syscbk
-*.vscode*
-.bash_history
-tools
-'Root File System'
+*.s.o
+*.exe
+limine-instal*
+*.bin
+*.EFI
+*.sys
+*.iso
+.vscode
+.DS_Store
