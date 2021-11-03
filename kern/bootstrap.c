@@ -1,6 +1,8 @@
 #include <stdint.h>
 #include <stddef.h>
 
+#include <libc/string.h>
+
 #include <cpu.h>
 #include <debug/trace.h>
 #include <stand/stivale2.h>
@@ -30,23 +32,35 @@ __attribute__((section(".stivale2hdr"), used))
 static struct stivale2_header stivale_hdr = {
     .entry_point = 0,
     .stack = (uintptr_t)stack + sizeof(stack),
-    .flags = (1 << 1) | (1 << 2),
+    .flags = (1 << 1) | (1 << 2) | (1 << 4),
     .tags = (uintptr_t)&framebuffer_hdr_tag
 };
- 
-announce()
+
+void (*termio)(char *str, size_t len);
+
+void _start(struct stivale2_struct *env) 
 {
-    trace("Kernel loaded");
-    return(0);
-}
+    extern void halt();
 
-void _start(env) 
-struct stivale2_struct *env; {
-    init_tty(env);
+    static void (*termout)(char *str, size_t len);
 
-    announce();
+    struct stivale2_struct_tag_terminal *term_str_tag;
+    term_str_tag = stivale2_get_tag(env, STIVALE2_STRUCT_TAG_TERMINAL_ID);
 
-halt:
-    halt();
-    goto halt;
+    if (term_str_tag == 0)
+    {
+        for (;;)
+        {
+            halt();
+        }
+    }
+    void *term_write_ptr = (void *)term_str_tag->term_write;
+    termio = term_write_ptr;
+    termio("Done\n", strlen("Done\n"));
+
+    //announce();
+
+    _io_printf("Test\n");
+
+    while(1) {}
 }

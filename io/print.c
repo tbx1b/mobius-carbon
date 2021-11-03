@@ -8,10 +8,9 @@
 #define RETURN return(0)
 
 #define PRINTF_BUFFER 20
-
-typedef (*termbuf_t)(char *str, size_t len);
 static _ready = 0;
-static termbuf_t termio;
+extern void (*termio)(char *str, size_t len);
+void *t = 0;
 
 sprintf(c, len)
 char c[]; {
@@ -34,38 +33,18 @@ char c[]; {
         termio(tmp2, PRINTF_BUFFER); \
     } while (0)
 
-init_tty(t) 
-struct stivale2_struct *t; {
-    extern void halt();
-
-    struct stivale2_struct_tag_terminal *term_str_tag;
-    term_str_tag = stivale2_get_tag(t, STIVALE2_STRUCT_TAG_TERMINAL_ID);
-
-    if (term_str_tag == 0)
-    {
-        for (;;)
-        {
-            halt();
-        }
-    }
-
-    void *term_write_ptr = (void *)term_str_tag->term_write;
-
-    termio = term_write_ptr;
-
-    _ready = 1;
-    RETURN;
-}
-
 _io_printf(char fmt[], ...) {
     int cnt;
     char c;
     char tmp[1];
     va_list args;
+    extern void halt();
+
+    if (!termio) return; /* null test, else we'll triple fault ;) */
     
     cnt=0;
     va_start(args, fmt);
-    if (!_ready) return;
+    
     do {
         if (*fmt!='%') {termio(&fmt[0], 1); continue;}
         fmt++;
