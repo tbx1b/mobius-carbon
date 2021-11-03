@@ -38,29 +38,28 @@ static struct stivale2_header stivale_hdr = {
 
 void (*termio)(char *str, size_t len);
 
+#define TTY_INIT \
+    do { \
+        static void (*termout)(char *str, size_t len); \
+        struct stivale2_struct_tag_terminal *term_str_tag; \
+        term_str_tag = stivale2_get_tag(env, STIVALE2_STRUCT_TAG_TERMINAL_ID); \
+        if (term_str_tag == 0) { \
+            halt(); } \
+        void *term_write_ptr = (void *)term_str_tag->term_write; \
+        termio = term_write_ptr; \
+    } while(0)
+
+announce()
+{
+    trace("Kernel will begin loading now");
+}
+
 void _start(struct stivale2_struct *env) 
 {
     extern void halt();
+    TTY_INIT; /* brevity */
 
-    static void (*termout)(char *str, size_t len);
+    announce();
 
-    struct stivale2_struct_tag_terminal *term_str_tag;
-    term_str_tag = stivale2_get_tag(env, STIVALE2_STRUCT_TAG_TERMINAL_ID);
-
-    if (term_str_tag == 0)
-    {
-        for (;;)
-        {
-            halt();
-        }
-    }
-    void *term_write_ptr = (void *)term_str_tag->term_write;
-    termio = term_write_ptr;
-    termio("Done\n", strlen("Done\n"));
-
-    //announce();
-
-    _io_printf("Test\n");
-
-    while(1) {}
+    halt();
 }

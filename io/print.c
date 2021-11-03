@@ -8,13 +8,11 @@
 #define RETURN return(0)
 
 #define PRINTF_BUFFER 20
-static _ready = 0;
 extern void (*termio)(char *str, size_t len);
 void *t = 0;
 
 sprintf(c, len)
 char c[]; {
-    if (!_ready) return;
     termio(c, len);
     RETURN;
 }
