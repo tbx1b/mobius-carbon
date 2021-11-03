@@ -19,3 +19,4 @@ uint64_t id; {
         current_tag = (uintptr_t)current_tag->next;
     }
 }
+/* eof */
