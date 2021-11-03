@@ -5,7 +5,7 @@ build
 *.exe
 limine-instal*
 *.bin
-*.EFI
+*.EFI*
 *.sys
 *.iso
 .vscode
