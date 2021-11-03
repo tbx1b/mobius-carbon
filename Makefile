@@ -42,7 +42,7 @@ clean:
 	rm $(OBJ) build/boot/kernel8.* image.iso || true
 
 run:
-	qemu-system-x86_64 image.iso
+	qemu-system-x86_64 -m 4G image.iso
 
 image:
 	mkdir -p build/boot

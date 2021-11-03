@@ -1,6 +1,5 @@
 #include <stddef.h>
 #include <stdarg.h>
-
 #include <stand/stivale2.h>
 #include <libc/string.h>
 #include <libc/stdlib.h>
@@ -9,14 +8,12 @@
 
 #define PRINTF_BUFFER 20
 
-typedef (*termbuf_t)(char *str, size_t len);
 static _ready = 0;
-static termbuf_t termio;
 
 sprintf(c, len)
 char c[]; {
-    if (!_ready) return;
-    termio(c, len);
+    if (!_ready) return 1;
+    //termio(c, len);
     RETURN;
 }
 
@@ -34,27 +31,12 @@ char c[]; {
         termio(tmp2, PRINTF_BUFFER); \
     } while (0)
 
-init_tty(t) 
-struct stivale2_struct *t; {
-    extern void halt();
+struct stivale2_struct *t; 
 
-    struct stivale2_struct_tag_terminal *term_str_tag;
-    term_str_tag = stivale2_get_tag(t, STIVALE2_STRUCT_TAG_TERMINAL_ID);
-
-    if (term_str_tag == 0)
-    {
-        for (;;)
-        {
-            halt();
-        }
-    }
-
-    void *term_write_ptr = (void *)term_str_tag->term_write;
-
-    termio = term_write_ptr;
-
-    _ready = 1;
-    RETURN;
+init_tty(__t) 
+struct stivale2_struct *__t; {
+    t = __t;
+    return 1;
 }
 
 _io_printf(char fmt[], ...) {
@@ -62,6 +44,13 @@ _io_printf(char fmt[], ...) {
     char c;
     char tmp[1];
     va_list args;
+
+    // this is incredibly slow.
+    struct stivale2_struct_tag_terminal *term_str_tag;
+    term_str_tag = stivale2_get_tag(t, STIVALE2_STRUCT_TAG_TERMINAL_ID);
+
+    void *term_write_ptr = (void *)term_str_tag->term_write;
+    void (*termio)(const char *string, size_t length) = term_write_ptr;
     
     cnt=0;
     va_start(args, fmt);

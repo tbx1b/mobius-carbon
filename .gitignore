@@ -11,3 +11,4 @@ limine-instal*
 .vscode
 .DS_Store
 *.json
+.cache

@@ -165,7 +165,7 @@ struct stivale2_struct_tag_memmap {
     uint64_t entries;
     struct stivale2_mmap_entry memmap[];
 };
-typedef struct stivale2_struct_tag_memmap memmap_t;
+typedef struct stivale2_struct_tag_memmap *memmap_t;
 typedef struct stivale2_mmap_entry memmap_entry_t;
 
 #define STIVALE2_STRUCT_TAG_FRAMEBUFFER_ID 0x506461d2950408fa

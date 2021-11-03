@@ -38,5 +38,5 @@ SECTIONS
     .bss : {
         *(COMMON)
         *(.bss*)
-    } :data
+    } : data
 }

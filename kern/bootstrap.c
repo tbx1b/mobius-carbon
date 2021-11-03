@@ -42,9 +42,12 @@ announce()
 
 void _start(env) 
 struct stivale2_struct *env; {
-    init_tty(env);
+    if (init_tty(env) == 0) {
+        return;
+    }
 
-    announce();
+    _io_printf("Something....\n");
+    //load_mmap(env);
 
 halt:
     halt();
