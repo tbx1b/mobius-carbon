@@ -9,7 +9,7 @@ iso:
 	@echo "Return to host to emulate"
 
 run:
-	qemu-system-x86_64 -m 3G -serial stdio mk/image.iso
+	qemu-system-i386 -m 3G -serial stdio mk/image.iso
 
 .PHONY : all
 .PHONY : clean
