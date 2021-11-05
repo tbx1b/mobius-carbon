@@ -12,16 +12,15 @@
 void MLTX_API
 kernel_main(void)
 {
-    announce();
-    loadg();
-    loadi();
+    /* start up the HAL */
+    assertNonzero(_hal_init());
 
 #if 0
     __asm__("int $24"); // trigger ISR warning
 #endif
 
-    while (1)
-    {
-    }
+    /* unexpected eof */
+    assertNonzero(_hal_shutdown());
+
     return;
 }

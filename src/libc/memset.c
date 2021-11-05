@@ -87,3 +87,11 @@ _libkernel_memset(void *dst0, int c0, size_t length)
 	}
 	RETURN;
 }
+
+stub()
+{
+	volatile int a = 0, b = 1, c = 0;
+	int* d;
+	*d = a;
+	_libkernel_memset(d, b, c);
+}

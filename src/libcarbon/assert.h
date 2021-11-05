@@ -49,7 +49,7 @@
 #define assertNonzero(x)                                                                          \
     do                                                                                          \
     {                                                                                           \
-        if (!((x) != 0))                                                                        \
+        if (((x) != 0))                                                                        \
         {                                                                                       \
             printf_("\033[1m\033[31m ASSERTION FAILED - %s - %d\033[0m\n", __FILE__, __LINE__); \
             for (;;)                                                                            \

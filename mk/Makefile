@@ -12,7 +12,7 @@ CFLAGS := -I../src \
             -std=c17 \
 			-ffreestanding -nostdlib -fno-builtin -fno-stack-protector \
 			-mno-red-zone -mno-red-zone -fno-builtin \
-			-Wno-implicit-int -Ofast -D $(MODE)
+			-Wno-implicit-int -O2 -D $(MODE)
 ASFLAGS := -O2
 LDFLAGS := -T../mk/lnk.lds -nostdlib
 CFILES := $(shell find \
