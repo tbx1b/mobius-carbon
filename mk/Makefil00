@@ -1,0 +1,16 @@
+#########################################################################
+#	file: 		Makefil01												#
+#	brief: 		Compile the kernel										#
+#	author: 	mobiusloop4												#
+#	license:	default													#
+#########################################################################
+TARGET := i686
+PROJECT := vmcarbouz
+CC := $(TARGET)-elf-gcc
+AS := $(TARGET)-elf-as
+NASM := nasm
+LD := $(TARGET)-elf-gcc
+BLDIR := ../mk/rootfs
+STRIP := $(TARGET)-elf-strip
+MODE := __DEBUG__
+# EOF
