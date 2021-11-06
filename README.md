@@ -39,7 +39,7 @@ Steps:
 - When you want to run the OS, run:
   - `make run`
 
-Note that a lot of what is said here, can be found online, and Carbon documentation can be accessed with
+Note that a lot of what is said here, can be found online, and if you need help compiling gcc or binutils - refer to online resources.
 
 ## Mac
 
