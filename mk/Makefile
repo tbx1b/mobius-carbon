@@ -47,7 +47,7 @@ $(PROJECT)-release : $(OBJ)
 	$(NASM) -felf32 $< -o $@
 
 %.S.o: %.S
-	$(AS) $(ASFLAGS) $< -o $@
+	$(AS) $(ASFLAGS) -c $< -o $@
 
 clean:
 	(rm image.iso $(OBJ)) || true

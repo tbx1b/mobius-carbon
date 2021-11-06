@@ -7,9 +7,9 @@
 TARGET := i686
 PROJECT := vmcarbouz
 CC := $(TARGET)-elf-gcc
-AS := $(TARGET)-elf-as
+AS := $(TARGET)-elf-gcc
 NASM := nasm
-LD := $(TARGET)-elf-gcc
+LD := $(TARGET)-elf-ld
 BLDIR := ../mk/rootfs
 STRIP := $(TARGET)-elf-strip
 MODE := __DEBUG__
