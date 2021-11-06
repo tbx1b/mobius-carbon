@@ -80,7 +80,7 @@ Make sure you have the current `$PATH` in your `~/.zshrc`. If you still encounte
 
 In the root folder of this repo, run:
 
-- $ `cd mk && git clone https://github.com/limine-bootloader/limine.git --branch=v2.0-branch-binary --depth=1`
+- $ `cd mk && git clone https://github.com/limine-bootloader/limine.git --branch=v2.0-branch-binary --depth=1 && make -C limine`
 - $ `cd ..; make && make iso`
 
 #### Running and debugging
