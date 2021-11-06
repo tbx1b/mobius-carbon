@@ -12,5 +12,9 @@ xorriso -as mkisofs -b limine-cd.bin \
         -efi-boot-part --efi-boot-image --protective-msdos-label \
         rootfs -o image.iso
  
-# Install Limine stage 1 and 2 for legacy BIOS boot.
-./limine/limine-install image.iso
+# Checks the OS, and install the proper Limine stage 1 and 2 for legacy BIOS boot.
+if [[ $OSTYPE == 'darwin'* ]]; then
+      ./limine/limine-install image.iso
+else
+      ./limine/limine-install-linux-x86_64 image.iso
+fi
