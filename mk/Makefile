@@ -13,7 +13,11 @@ CFLAGS := -I../src \
 			-ffreestanding -nostdlib -fno-builtin -fno-stack-protector \
 			-mno-red-zone -mno-red-zone -fno-builtin \
 			-Wno-implicit-int -O2 -D $(MODE)
-ASFLAGS := -O2
+ASFLAGS := \
+			-I../src \
+			-I../src/libc/ \
+			-I../src/libcarbon \
+			-I../src/mtss -c
 LDFLAGS := -T../mk/lnk.lds -nostdlib
 CFILES := $(shell find \
 						../src \

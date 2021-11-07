@@ -24,8 +24,8 @@
 #include <liblmm/lmm.h>
 
 void *lmm_alloc_gen(lmm_t *lmm, __size_t size, lmm_flags_t flags,
-		    int align_bits, __uintptr_t align_ofs,
-		    __uintptr_t in_min, __size_t in_size)
+		    int align_bits, uintptr_t align_ofs,
+		    uintptr_t in_min, uintptr_t in_size)
 {
 	__uintptr_t in_max = in_min + in_size;
 	struct lmm_region *reg;

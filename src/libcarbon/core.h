@@ -40,4 +40,7 @@ extern void MLTX_API _os_announce();
 #define _CARBON_BEGIN_DECLS
 #define _CARBON_END_DECLS 
 #endif
+
+#define INLINE extern /* __inline */
+
 #endif
