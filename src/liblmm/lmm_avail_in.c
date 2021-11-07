@@ -1,4 +1,4 @@
-/* @(#) stdint.h */
+/* @(#) lmm_alloc_avail_in.c */
 
 /*
  * Copyright (c) 2021 MobiusLoopFour. All rights reserved.
@@ -21,14 +21,13 @@
  *
  */
 
-#if !defined(_string_h)
-#define _string_h
 
-#include <libcarbon/core.h>
-#include <libc/stddef.h>
+#if 0
 
-void * MLTX_API
-_libkernel_memset(void *dst0, int c0, size_t length);
-#define memset _libkernel_memset
+#include <liblmm/lmm.h>
+
+void lmm_avail_in(unsigned flags, __uintptr_t addr, __size_t size)
+{
+}
 
 #endif

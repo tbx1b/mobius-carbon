@@ -1,4 +1,4 @@
-/* @(#) stdint.h */
+/* @(#) lmm_alloc_page.c */
 
 /*
  * Copyright (c) 2021 MobiusLoopFour. All rights reserved.
@@ -21,14 +21,12 @@
  *
  */
 
-#if !defined(_string_h)
-#define _string_h
+#include <liblmm/page.h>
+#include <liblmm/lmm.h>
 
-#include <libcarbon/core.h>
-#include <libc/stddef.h>
+void *lmm_alloc_page(lmm_t *lmm, lmm_flags_t flags)
+{
+	return lmm_alloc_gen(lmm, PAGE_SIZE, flags, PAGE_SHIFT, 0,
+			     (__uintptr_t)0, (__size_t)-1);
+}
 
-void * MLTX_API
-_libkernel_memset(void *dst0, int c0, size_t length);
-#define memset _libkernel_memset
-
-#endif

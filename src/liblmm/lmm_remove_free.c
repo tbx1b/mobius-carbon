@@ -1,4 +1,4 @@
-/* @(#) stdint.h */
+/* @(#) lmm_remove_free.c */
 
 /*
  * Copyright (c) 2021 MobiusLoopFour. All rights reserved.
@@ -20,15 +20,29 @@
  * limitations under the License.
  *
  */
+#include <liblmm/lmm.h>
 
-#if !defined(_string_h)
-#define _string_h
+void lmm_remove_free(lmm_t *lmm, void *block, __size_t block_size)
+{
+	__uintptr_t rstart = (__uintptr_t)block;
+	__uintptr_t rend = rstart + block_size;
+	assert(rend > rstart);
 
-#include <libcarbon/core.h>
-#include <libc/stddef.h>
+	while (rstart < rend)
+	{
+		__uintptr_t size;
+		lmm_flags_t flags;
+		void *ptr;
 
-void * MLTX_API
-_libkernel_memset(void *dst0, int c0, size_t length);
-#define memset _libkernel_memset
+		lmm_find_free(lmm, &rstart, &size, &flags);
+		assert(rstart >= (__uintptr_t)block);
+		if ((size == 0) || (rstart >= rend))
+			break;
+		if (rstart + size > rend)
+			size = rend - rstart;
+		ptr = lmm_alloc_gen(lmm, size, flags, 0, 0,
+				    rstart, size);
+		assert((__uintptr_t)ptr == rstart);
+	}
+}
 
-#endif

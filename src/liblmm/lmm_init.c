@@ -1,4 +1,4 @@
-/* @(#) stdint.h */
+/* @(#) lmm_init.c */
 
 /*
  * Copyright (c) 2021 MobiusLoopFour. All rights reserved.
@@ -21,14 +21,10 @@
  *
  */
 
-#if !defined(_string_h)
-#define _string_h
+#include <liblmm/lmm.h>
 
-#include <libcarbon/core.h>
-#include <libc/stddef.h>
+void lmm_init(lmm_t *lmm)
+{
+	lmm->regions = 0;
+}
 
-void * MLTX_API
-_libkernel_memset(void *dst0, int c0, size_t length);
-#define memset _libkernel_memset
-
-#endif

@@ -1,4 +1,4 @@
-/* @(#) stdint.h */
+/* @(#) lmm_stats.c */
 
 /*
  * Copyright (c) 2021 MobiusLoopFour. All rights reserved.
@@ -21,14 +21,47 @@
  *
  */
 
-#if !defined(_string_h)
-#define _string_h
-
-#include <libcarbon/core.h>
-#include <libc/stddef.h>
-
-void * MLTX_API
-_libkernel_memset(void *dst0, int c0, size_t length);
-#define memset _libkernel_memset
-
+#ifndef DEBUG
+#define DEBUG
 #endif
+
+#include <libcarbon/io.h>
+#include <liblmm/lmm.h>
+
+void lmm_stats(lmm_t *lmm)
+{
+	struct lmm_region *reg;
+	unsigned int regions, nodes, memfree;
+
+	regions = nodes = memfree = 0;
+	for (reg = lmm->regions; reg; reg = reg->next)
+	{
+		struct lmm_node *node;
+		__size_t free_check;
+
+		CHECKREGPTR(reg);
+
+		regions++;
+
+		free_check = 0;
+		for (node = reg->nodes; node; node = node->next)
+		{
+			assert(((__uintptr_t)node & ALIGN_MASK) == 0);
+			assert((node->size & ALIGN_MASK) == 0);
+			assert(node->size >= sizeof(*node));
+			assert((node->next == 0) || (node->next > node));
+			assert((__uintptr_t)node < reg->max);
+
+			nodes++;
+
+			free_check += node->size;
+		}
+		assert(reg->free == free_check);
+
+		memfree += reg->free;
+	}
+
+	printf("LMM=%p: %u bytes in %u regions, %d nodes\n",
+	       lmm, memfree, regions, nodes);
+}
+

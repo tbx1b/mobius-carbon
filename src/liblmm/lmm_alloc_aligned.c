@@ -1,4 +1,4 @@
-/* @(#) stdint.h */
+/* @(#) lmm_alloc_aligned.c */
 
 /*
  * Copyright (c) 2021 MobiusLoopFour. All rights reserved.
@@ -21,14 +21,13 @@
  *
  */
 
-#if !defined(_string_h)
-#define _string_h
+#include <liblmm/lmm.h>
 
-#include <libcarbon/core.h>
-#include <libc/stddef.h>
+void *lmm_alloc_aligned(lmm_t *lmm, __size_t size, lmm_flags_t flags,
+			int align_bits, __uintptr_t align_ofs)
+{
+	return lmm_alloc_gen(lmm, size, flags,
+			     align_bits, align_ofs,
+			     (__uintptr_t)0, (__size_t)-1);
+}
 
-void * MLTX_API
-_libkernel_memset(void *dst0, int c0, size_t length);
-#define memset _libkernel_memset
-
-#endif

@@ -1,4 +1,4 @@
-/* @(#) stdint.h */
+/* @(#) shutdown.c - hal shutdown */
 
 /*
  * Copyright (c) 2021 MobiusLoopFour. All rights reserved.
@@ -21,14 +21,21 @@
  *
  */
 
-#if !defined(_string_h)
-#define _string_h
+#include <libcarbon/core.h>
+#include <libcarbon/hal.h>
+
+#include <libc/stdint.h>
 
 #include <libcarbon/core.h>
-#include <libc/stddef.h>
+#include <libcarbon/io.h>
+#include <libcarbon/vm.h>
+#include <libcarbon/assert.h>
+#include <libcarbon/hal.h>
 
-void * MLTX_API
-_libkernel_memset(void *dst0, int c0, size_t length);
-#define memset _libkernel_memset
+MLTX_API _hal_shutdown(void) {
 
-#endif
+	trace("HAL shutting down...");
+
+	__asm__ volatile("cli");
+	return 0;
+}

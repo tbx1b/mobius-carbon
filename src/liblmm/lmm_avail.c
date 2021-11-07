@@ -1,4 +1,4 @@
-/* @(#) stdint.h */
+/* @(#) lmm_avail.c */
 
 /*
  * Copyright (c) 2021 MobiusLoopFour. All rights reserved.
@@ -20,15 +20,24 @@
  * limitations under the License.
  *
  */
+#include <liblmm/lmm.h>
 
-#if !defined(_string_h)
-#define _string_h
+__size_t lmm_avail(lmm_t *lmm, lmm_flags_t flags)
+{
+	struct lmm_region *reg;
+	__size_t count;
 
-#include <libcarbon/core.h>
-#include <libc/stddef.h>
+	count = 0;
+	for (reg = lmm->regions; reg; reg = reg->next)
+	{
+		CHECKREGPTR(reg);
 
-void * MLTX_API
-_libkernel_memset(void *dst0, int c0, size_t length);
-#define memset _libkernel_memset
+		/* Don't count inapplicable regions.  */
+		if (flags & ~reg->flags)
+			continue;
 
-#endif
+		count += reg->free;
+	}
+	return count;
+}
+

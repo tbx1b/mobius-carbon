@@ -1,4 +1,4 @@
-/* @(#) stdint.h */
+/* @(#) init.c - hal init */
 
 /*
  * Copyright (c) 2021 MobiusLoopFour. All rights reserved.
@@ -21,14 +21,26 @@
  *
  */
 
-#if !defined(_string_h)
-#define _string_h
+#include <libcarbon/core.h>
+#include <libcarbon/hal.h>
+
+#include <libc/stdint.h>
 
 #include <libcarbon/core.h>
-#include <libc/stddef.h>
+#include <libcarbon/io.h>
+#include <libcarbon/vm.h>
+#include <libcarbon/assert.h>
+#include <libcarbon/hal.h>
 
-void * MLTX_API
-_libkernel_memset(void *dst0, int c0, size_t length);
-#define memset _libkernel_memset
+MLTX_API _hal_init(void) {
 
-#endif
+	/* announce() should go first */
+	announce();
+	trace("HAL initialised for platform IA-32");
+	trace("HAL vendor: <stock>");
+
+    loadg();
+    loadi();
+
+    return 0;
+}
