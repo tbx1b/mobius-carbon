@@ -1,0 +1,1 @@
+/* __inline */ void std(void) { __asm__("std"); }

@@ -40,11 +40,11 @@ typedef __uint32_t __vm_offset_t;
 typedef __uint32_t __vm_size_t;
 
 #if __SIZEOF_SIZE_T__ == 8
-typedef __uint64_t __size_t; /* sizeof() */
+typedef long unsigned int __size_t; /* sizeof() */
 typedef __int64_t __ssize_t; /* byte count or error */
 #elif __SIZEOF_SIZE_T__ == 4
-typedef __uint32_t __size_t;   /* sizeof() */
-typedef __int32_t __ssize_t;   /* byte count or error */
+typedef long unsigned int __size_t;   /* sizeof() */
+typedef long signed int __ssize_t;   /* byte count or error */
 #else
 #error unsupported size_t size
 #endif

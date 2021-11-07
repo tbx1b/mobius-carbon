@@ -32,6 +32,8 @@
 #include <libcarbon/assert.h>
 #include <libcarbon/hal.h>
 
+#include "cpu.h"
+
 MLTX_API _hal_init(void) {
 
 	/* announce() should go first */

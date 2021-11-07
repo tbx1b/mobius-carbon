@@ -66,8 +66,8 @@
  *	No rounding is used.
  */
 
-#define atop(x)		(((oskit_size_t)(x)) >> PAGE_SHIFT)
-#define ptoa(x)		((oskit_addr_t)((x) << PAGE_SHIFT))
+#define atop(x)		(((__size_t)(x)) >> PAGE_SHIFT)
+#define ptoa(x)		((uintptr_t)((x) << PAGE_SHIFT))
 
 /*
  *	Round off or truncate to the nearest page.  These will work
@@ -75,14 +75,14 @@
  *	bytes.
  */
 
-#define round_page(x)	((oskit_addr_t)((((oskit_addr_t)(x)) + PAGE_MASK) & ~PAGE_MASK))
-#define trunc_page(x)	((oskit_addr_t)(((oskit_addr_t)(x)) & ~PAGE_MASK))
+#define round_page(x)	((uintptr_t)((((uintptr_t)(x)) + PAGE_MASK) & ~PAGE_MASK))
+#define trunc_page(x)	((uintptr_t)(((uintptr_t)(x)) & ~PAGE_MASK))
 
 /*
  *	Determine whether an address is page-aligned, or a count is
  *	an exact page multiple.
  */
 
-#define	page_aligned(x)	((((oskit_addr_t) (x)) & PAGE_MASK) == 0)
+#define	page_aligned(x)	((((uintptr_t) (x)) & PAGE_MASK) == 0)
 
 #endif	/* _OSKIT_PAGE_H_ */
