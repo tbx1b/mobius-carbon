@@ -1,6 +1,6 @@
 # Carbon
 
-Carbon is a small hobby kernel, which aims to be a microkernel
+Carbon is a small hobby kernel, which aims to be a microkernel.
 
 ![Image of Carbon running](https://cdn.discordapp.com/attachments/770712465729912832/906606508920430662/Screen_Shot_2021-11-06_at_19.10.29.png)
 
