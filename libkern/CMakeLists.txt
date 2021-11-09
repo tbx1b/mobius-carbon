@@ -1,0 +1,3 @@
+file(GLOB_RECURSE LIBCARBON_SRC "${CMAKE_CURRENT_SOURCE_DIR}/*.c")
+
+add_library(kern ${LIBCARBON_SRC})

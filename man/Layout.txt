@@ -1,0 +1,40 @@
+§ 1 - LAYOUT
+
+The Carbon kernel has been neatly organised into
+multiple subdirectories, each holding their respective source
+files or config files. Some directories first build to a 
+library (*.a). They are marked with an asterisk*.
+
+§ 1.1 Table
+
+/aconf      - Holds compiler configuration scripts such as the linker.ld;
+
+/chips      - source code for interfacing with commonly found chips in
+          PC hardware;
+
+/device     - code for interfacing with commonly found devices on PC 
+          hardware. Note that these should generally not be exposed
+          to the userland operating system as drivers, but rather
+          be used privately (i.e. in-kernel);
+
+/gnu        - source code adapted from various GNU projects. It's license
+          can be found therein;
+
+/i386,...   - architecture specific code. Assembly should only be stashed
+          there, as the assembler isn't set up to look anywhere else.
+          It is also good practice in general to keep architecture-specific
+          code in it's own subdirectory;
+
+/ipc        - code for inter-process communication and scheduling;
+
+/kern       - the kernel "main loop" and helper functions;
+
+/libc*      - a dumbed-down collection of headers and functions from the
+          C standard library;
+
+/libkern*   - kernel helper functions and data structres;
+
+/sys        - system headers that shouldn't go in /libc or /libcarbon;
+
+/vm         - physical memory management environment (ironically
+          called "virtual memory").

@@ -1,0 +1,1 @@
+__attribute__((visibility("hidden"))) int __stub__(void) { return 0; } // for cmake
