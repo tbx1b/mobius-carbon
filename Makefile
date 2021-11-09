@@ -1,16 +1,11 @@
 all:
-	make -C mk all
-
-clean:
-	@make -C mk clean
-
-iso:
-	@cd mk && ./imag.sh
-	@echo "Return to host to emulate"
-
+	@make -C build all
 run:
-	qemu-system-i386 -m 3G -serial stdio mk/image.iso
-
-.PHONY : all
-.PHONY : clean
-.PHONY : run
+	@qemu-system-i386 -kernel build/c_kernel -serial stdio
+clean:
+	@make -C build clean
+deconf:
+	./deconf
+conf:
+	./conf
+.PHONY : conf deconf all clean run

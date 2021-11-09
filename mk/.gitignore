@@ -1,8 +1,0 @@
-.DS_Store
-.cache
-.vscode
-*.o
-*.d
-*.iso
-*.json
-com.mobius*
