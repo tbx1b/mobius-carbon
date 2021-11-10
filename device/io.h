@@ -40,4 +40,4 @@ __END_DECLS
 #define outb __outb
 
 #endif /* __CARBON_IO_H_ */
-// eof
+       // eof
