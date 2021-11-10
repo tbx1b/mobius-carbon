@@ -7,19 +7,15 @@
  *===-----------------------------------------------------------------------===
  */
 
-// uint32_t
 #include <stdint.h>
-// printf
 #include <stdio.h>
-// assert()
 #include <assert.h>
-
-// MULTIBOOT_BOOTLOADER_MAGIC
 #include <gnu/multiboot.h>
+#include <vm/descriptor_tables.h>
 
 uint32_t kmain(uint32_t magic, uintptr_t addr) {
   assert(magic == MULTIBOOT_BOOTLOADER_MAGIC);
-  printf("Hello, World!\n");
+  tabinit();
   RETURN;
 }
 // eof

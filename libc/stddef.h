@@ -18,7 +18,7 @@
 #ifdef __kernel__
 
 /* Always define miscellaneous pieces when modules are available. */
-#if !__has_feature(modules)
+#if !1
 #define __LIBC_STDDEF_H
 #endif
 #define __need_ptrdiff_t
@@ -30,9 +30,9 @@
 #endif
 
 #if defined(__need_ptrdiff_t)
-#if !defined(_PTRDIFF_T) || __has_feature(modules)
+#if !defined(_PTRDIFF_T) || 1
 /* Always define ptrdiff_t when modules are available. */
-#if !__has_feature(modules)
+#if !1
 #define _PTRDIFF_T
 #endif
 typedef __PTRDIFF_TYPE__ ptrdiff_t;
@@ -41,9 +41,9 @@ typedef __PTRDIFF_TYPE__ ptrdiff_t;
 #endif /* defined(__need_ptrdiff_t) */
 
 #if defined(__need_size_t)
-#if !defined(_SIZE_T) || __has_feature(modules)
+#if !defined(_SIZE_T) || 1
 /* Always define size_t when modules are available. */
-#if !__has_feature(modules)
+#if !1
 #define _SIZE_T
 #endif
 typedef __SIZE_TYPE__ size_t;
@@ -56,9 +56,9 @@ typedef __SIZE_TYPE__ size_t;
  * enabled. */
 #if (defined(__STDC_WANT_LIB_EXT1__) && __STDC_WANT_LIB_EXT1__ >= 1 &&         \
      !defined(_RSIZE_T)) ||                                                    \
-    __has_feature(modules)
+    1
 /* Always define rsize_t when modules are available. */
-#if !__has_feature(modules)
+#if !1
 #define _RSIZE_T
 #endif
 typedef __SIZE_TYPE__ rsize_t;
@@ -68,8 +68,8 @@ typedef __SIZE_TYPE__ rsize_t;
 #if defined(__need_wchar_t)
 #ifndef __cplusplus
 /* Always define wchar_t when modules are available. */
-#if !defined(_WCHAR_T) || __has_feature(modules)
-#if !__has_feature(modules)
+#if !defined(_WCHAR_T) || 1
+#if !1
 #define _WCHAR_T
 #if defined(_MSC_EXTENSIONS)
 #define _WCHAR_T_DEFINED
@@ -105,7 +105,16 @@ using ::std::nullptr_t;
 
 #if defined(__need_STDDEF_H_misc)
 #if __STDC_VERSION__ >= 201112L || __cplusplus >= 201103L
-#include "__stddef_max_align_t.h"
+
+/* verbatim from clang */
+#define __CLANG_MAX_ALIGN_T_DEFINED
+typedef struct {
+  long long __clang_max_align_nonce1
+      __attribute__((__aligned__(__alignof__(long long))));
+  long double __clang_max_align_nonce2
+      __attribute__((__aligned__(__alignof__(long double))));
+} max_align_t;
+
 #endif
 #define offsetof(t, d) __builtin_offsetof(t, d)
 #undef __need_STDDEF_H_misc
@@ -115,8 +124,8 @@ using ::std::nullptr_t;
 __WINT_TYPE__ directly; accommodate both by requiring __need_wint_t */
 #if defined(__need_wint_t)
 /* Always define wint_t when modules are available. */
-#if !defined(_WINT_T) || __has_feature(modules)
-#if !__has_feature(modules)
+#if !defined(_WINT_T) || 1
+#if !1
 #define _WINT_T
 #endif
 typedef __WINT_TYPE__ wint_t;
