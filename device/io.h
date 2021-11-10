@@ -10,7 +10,6 @@
 #ifndef __CARBON_IO_H_
 #define __CARBON_IO_H_
 
-#include <sys/cdefs.h>
 #include <sys/types.h>
 #include <sys/defs.h>
 
@@ -41,4 +40,4 @@ __END_DECLS
 #define outb __outb
 
 #endif /* __CARBON_IO_H_ */
-// eof
+       // eof
