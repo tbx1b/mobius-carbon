@@ -14,12 +14,12 @@ GLOB(__outb)
   movb  8(%esp), %al
   movw  4(%esp), %dx
   outb  %al, %dx
-  ret
+  retl
 
 FSYM(__inb)
 GLOB(__inb)
   movw  4(%esp), %dx
   inb   %dx, %al
-  ret
+  retl
 
 .section .note.GNU-stack,"",%progbits

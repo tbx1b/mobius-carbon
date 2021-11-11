@@ -26,36 +26,36 @@
 
 FSYM(_start)
 GLOB(_start)
-	mov $kernel_stack, %esp
+	movl $kernel_stack, %esp
 
 	// reset eflags
 	pushl   $0
 	popf
 
-	/* Push the pointer to the Multiboot information structure */
-  pushl   %ebx
-  /* Push the magic value */
-  pushl   %eax
+	// Push the pointer to the Multiboot information structure
+	pushl   %ebx
+  // Push the magic value
+	pushl   %eax
 
-	call kmain
+	calll kmain
 // Nothing to do...
-	or 			%eax,%eax
+	orl			%eax,%eax
 	jnz			2f
 	pushl 	$hanging
-	call		printf_
+	calll		printf_
 1:
 	cli
 	hlt
 	jmp 1b
 2:
 	pushl $something_went_wrong
-	call printf_
+	calll printf_
 
 something_went_wrong: 
 	.asciz "Something went wrong. You may now turn off your computer and restart\n"
 
 hanging:
-	.asciz "You may turn off your computer...\n"
+	.asciz "You may turn off your computer\n"
 
 .section .bss, "aw"
 .space 8192 * 2
