@@ -7,6 +7,9 @@
  *===-----------------------------------------------------------------------===
  */
 
+#ifndef __STDDEF_H
+#define __STDDEF_H
+
 #if !defined(__LIBC_STDDEF_H) || defined(__need_ptrdiff_t) ||                  \
     defined(__need_size_t) || defined(__need_wchar_t) ||                       \
     defined(__need_NULL) || defined(__need_wint_t)
@@ -139,5 +142,6 @@ typedef __WINT_TYPE__ wint_t;
 
 #endif // kernel
 
-#endif // __LIBC_STDDEF_H
+#endif // 
+#endif // __STDDEF_H
        // eof

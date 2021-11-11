@@ -14,18 +14,16 @@
 
 #include <machine/asm.h>
 
-.extern exstub
-
-ISR_NO_EXCEPT(00)
-ISR_NO_EXCEPT(01)
-ISR_NO_EXCEPT(02)
-ISR_NO_EXCEPT(03)
-ISR_NO_EXCEPT(04)
-ISR_NO_EXCEPT(05)
-ISR_NO_EXCEPT(06)
-ISR_NO_EXCEPT(07)
-ISR          (08)
-ISR_NO_EXCEPT(09)
+ISR_NO_EXCEPT(0)
+ISR_NO_EXCEPT(1)
+ISR_NO_EXCEPT(2)
+ISR_NO_EXCEPT(3)
+ISR_NO_EXCEPT(4)
+ISR_NO_EXCEPT(5)
+ISR_NO_EXCEPT(6)
+ISR_NO_EXCEPT(7)
+ISR          (8)
+ISR_NO_EXCEPT(9)
 ISR          (10)
 ISR          (11)
 ISR          (12)
@@ -53,16 +51,16 @@ ISR_NO_EXCEPT(31)
 DSYM(stubs)
 GLOB(stubs)
 
-.int isr_stub_00
-.int isr_stub_01
-.int isr_stub_02
-.int isr_stub_03
-.int isr_stub_04
-.int isr_stub_05
-.int isr_stub_06
-.int isr_stub_07
-.int isr_stub_08
-.int isr_stub_09
+.int isr_stub_0
+.int isr_stub_1
+.int isr_stub_2
+.int isr_stub_3
+.int isr_stub_4
+.int isr_stub_5
+.int isr_stub_6
+.int isr_stub_7
+.int isr_stub_8
+.int isr_stub_9
 .int isr_stub_10
 .int isr_stub_11
 .int isr_stub_12

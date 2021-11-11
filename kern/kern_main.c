@@ -12,10 +12,14 @@
 #include <assert.h>
 #include <gnu/multiboot.h>
 #include <vm/descriptor_tables.h>
+#include <vm/paging.h>
 
 uint32_t kmain(uint32_t magic, uintptr_t addr) {
   assert(magic == MULTIBOOT_BOOTLOADER_MAGIC);
   tabinit();
+  __asm__ volatile ("int $1");
+  //vminit1();
+  //vminit2();
   RETURN;
 }
 // eof

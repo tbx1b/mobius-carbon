@@ -10,6 +10,7 @@
 #include <sys/defs.h>
 #include <stdint.h>
 #include <stddef.h>
+#include <stdio.h>
 
 #define _I_MAX 256
 
@@ -32,12 +33,6 @@ static idt_t idt;
 static _Bool vectors[_I_MAX];
 
 extern void* stubs[];
-
-_Noreturn void exstub() {
-  printf_("Got an interrupt\n");
-  while (1)
-  __asm__ volatile ("cli; hlt");
-}
 
 void isetd(uint8_t vec, void * isr, uint8_t flags) {
 

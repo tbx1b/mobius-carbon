@@ -19,19 +19,28 @@
 #   define DSYM(x) .section .data; .type x,@object;
 #   define AUOUT_SYM(x) _##x:
 
-// ISR macro
+// ISR macros
+// The error code is already pushed by the CPU
 #   define ISR(x) \
+  .align   4;\
   .globl isr_stub_##x; \
   .type isr_stub_##x,@function; \
   isr_stub_##x: ;\
-  call exstub; \
+  pushal;\
+  cld;\
+  call exstub;\
+  popal;\
   iret;
 
 #   define ISR_NO_EXCEPT(x) \
+  .align   4;\
   .globl isr_stub_##x; \
   .type isr_stub_##x,@function; \
   isr_stub_##x: ;\
-  call exstub; \
+  pushal;\
+  cld;\
+  call exstub;\
+  popal;\
   iret;
 
 #else
