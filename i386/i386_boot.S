@@ -60,4 +60,6 @@ hanging:
 .section .bss, "aw"
 .space 8192 * 2
 kernel_stack:
+
+.section .note.GNU-stack,"",%progbits
 // eof

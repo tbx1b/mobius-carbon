@@ -1,3 +1,4 @@
 file(GLOB_RECURSE LIBC_SRC "${CMAKE_CURRENT_SOURCE_DIR}/*.c")
+file(GLOB_RECURSE LIBC_ASM "${CMAKE_CURRENT_SOURCE_DIR}/${ARCH}/*.S")
 
-add_library(c ${LIBC_SRC})
+add_library(c ${LIBC_SRC} ${LIBC_ASM})

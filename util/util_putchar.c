@@ -1,3 +1,12 @@
+/*===---- putchar.c - Display a character on the serial port ---------------===
+ *
+ * Part of the Carbon kernel, under the GNU GPL v3.0 license.
+ * See https://www.gnu.org/licenses/gpl-3.0.en.html
+ * for license inFormation.
+ *
+ *===-----------------------------------------------------------------------===
+ */
+
 #include <sys/types.h>
 #include <device/io.h>
 

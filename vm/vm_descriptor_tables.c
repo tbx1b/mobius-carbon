@@ -8,6 +8,7 @@
  */
 
 #include <stdint.h>
+#include <chips/idt.h>
 #include <vm/descriptor_tables.h>
 
 extern void __attribute__((optnone)) gdtflush(uint32_t); // gdt.S
@@ -23,6 +24,7 @@ gdtptr_t gdt_ptr;
  */
 void tabinit() {
   ginit();
+  iinit();
 }
 
 /* clang will optimise these functions into oblivion...

@@ -1,10 +1,11 @@
-/*===----- types.h - Standard header For sized integer types --------------===*\
+/*===---- types.h - Standard-width types and typedefs ----------------------===
  *
  * Part of the Carbon kernel, under the GNU GPL v3.0 license.
  * See https://www.gnu.org/licenses/gpl-3.0.en.html
  * for license inFormation.
  *
-\*===----------------------------------------------------------------------===*/
+ *===-----------------------------------------------------------------------===
+ */
 
 #ifndef __CARBON_TYPES_H_
 #define __CARBON_TYPES_H_

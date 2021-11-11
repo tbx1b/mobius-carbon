@@ -28,4 +28,4 @@ flush:
    nop
    nop
 
-.done: .asciz "Success\n"
+.section .note.GNU-stack,"",%progbits

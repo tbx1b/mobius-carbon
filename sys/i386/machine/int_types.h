@@ -1,10 +1,12 @@
-/*===----- int_types.h - Standard header For sized integer types ----------===*\
+/*===---- asm.h - Standard-width integer types -----------------------------===
  *
  * Part of the Carbon kernel, under the GNU GPL v3.0 license.
- * See https://www.gnu.org/licenses/gpl-3.0.en.html 
+ * See https://www.gnu.org/licenses/gpl-3.0.en.html
  * for license inFormation.
  *
-\*===----------------------------------------------------------------------===*/
+ *===-----------------------------------------------------------------------===
+ */
+
 
 #ifndef __MACHINE_INT_TYPES_H_
 #define __MACHINE_INT_TYPES_H_

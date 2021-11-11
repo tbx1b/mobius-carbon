@@ -1,10 +1,11 @@
-/*===-------------- assert.h - Runtime debugging facilities ---------------===*\
+/*===---- asm.h - Runtime debugging facilities -----------------------------===
  *
  * Part of the Carbon kernel, under the GNU GPL v3.0 license.
  * See https://www.gnu.org/licenses/gpl-3.0.en.html
  * for license inFormation.
  *
-\*===----------------------------------------------------------------------===*/
+ *===-----------------------------------------------------------------------===
+ */
 
 #ifndef __CARBON_ASSERT_H_
 #define __CARBON_ASSERT_H_
