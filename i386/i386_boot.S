@@ -34,11 +34,11 @@ GLOB(_start)
 
 	// Push the pointer to the Multiboot information structure
 	pushl   %ebx
-  // Push the magic value
+	// Push the magic value
 	pushl   %eax
 
 	calll kmain
-// Nothing to do...
+	// Nothing to do...
 	orl			%eax,%eax
 	jnz			2f
 	pushl 	$hanging
