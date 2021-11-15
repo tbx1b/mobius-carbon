@@ -1,8 +1,5 @@
-build
-.DS_Store
-.cache
 *.o
-*.a
-*.json
-.vscode
-SECRET.TXT
+*.old
+*.d
+bin/kernel
+compile_commands.json

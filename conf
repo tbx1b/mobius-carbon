@@ -1,6 +1,0 @@
-#! /usr/bin/env sh
-
-mkdir -p build && \
-cd build && \
-cmake ../ -DCMAKE_TOOLCHAIN_FILE=../carbon.cmake \
-&& echo 'all:\n\t@make -C build all\nrun:\n\t@qemu-system-i386 -kernel build/c_kernel -serial stdio\nclean:\n\t@make -C build clean\ndeconf:\n\t./deconf\nconf:\n\t./conf\n.PHONY : conf deconf all clean run' > ../Makefile

@@ -1,7 +1,0 @@
-11/10/2021 - Evening
-
-Set up the gdt, finally conquered a bug in the compiler! (If you dont believe me, remove the __atribute__((noopt))'s ;))
-
-11/10/2021
-
-Started the repository anew with a fresh layout and code that is more maintainable than ever before.

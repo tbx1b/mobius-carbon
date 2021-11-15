@@ -1,1 +1,0 @@
-As an exception to all other libraries, public headers should go into ./
