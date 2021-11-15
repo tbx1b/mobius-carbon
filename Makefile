@@ -59,7 +59,7 @@ endif
 bin/kernel: $O $A/kernel.ld
 	mkdir -p bin
 	$(LD) $(LDFLAGS) -T$A/kernel.ld $O -o $@
-	$(OBJDUMP) -S bin/kernel > bin/kernel.s
+	$(OBJDUMP) -S bin/kernel > bin/kernel.dis
 	$(OBJDUMP) -t bin/kernel | sed '1,/SYMBOL TABLE/d; s/ .* / /; /^$$/d' > bin/kernel.dsym
 
 clean:
