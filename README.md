@@ -11,6 +11,7 @@ Carbon is a small hobby kernel, which aims to be a microkernel
 ### Dependencies:
 
 - build-essential
+- qemu-system-i386 or qemu-system-x86_64
 
 ### Instructions:
 
