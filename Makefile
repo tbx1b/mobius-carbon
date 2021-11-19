@@ -1,79 +1,39 @@
-A=aconf
-C=chips/chips_
-R=csr/csr_
-K=kern/kern_
-S=s
-Y=sys
+CC := riscv64-elf-gcc
+CFLAGS := -nostdlib -fno-builtin -mcmodel=medany -march=rv32ima -mabi=ilp32
+CFLAGS += -I./include -I./include/risc32
 
-O = \
-	$Cserial.o \
-	$Cmmu.o \
-	\
-	$Rmascotte.o \
-	$Rcnsl.o \
-	$Rtty.o \
-	\
-	$Kentry.o \
-	$Kmain.o \
-	\
-	$S/cn.o \
-	$S/io.o \
-	$S/platf.o \
-	$S/str1.o \
-	$S/str2.o \
-	$S/str3.o \
-	$S/str4.o \
-	$S/str5.o \
-	$S/str6.o \
+QEMU := qemu-system-riscv32
+QFLAGS := -nographic -smp 4 -machine virt -bios none
 
-D = $(O:.o=.d)
-T = i686-elf-
+OBJDUMP = riscv64-elf-objdump
 
-CC := $Tgcc
-AS := $Tgcc
-LD := $Tld
-OBJCOPY := $Tobjcopy
-OBJDUMP := $Tobjdump
+S=src/s
+C=src/c
+KNAME=krnl.sw
 
-CFLAGS = -fno-pic -static -fno-builtin -fno-strict-aliasing -O2 -Wall -MD -ggdb -m32 -Werror -fno-omit-frame-pointer -D__KERNEL__ -I.$Y -I. -Wno-implicit-int
-CFLAGS += $(shell $(CC) -fno-stack-protector -E -x c /dev/null >/dev/null 2>&1 && echo -fno-stack-protector)
-ASFLAGS = -m32 -gdwarf-2 -Wa,-divide -D__ASSEMBLER__ -D__KERNEL__ -I.$Y -I.
-LDFLAGS += -m $(shell $(LD) -V | grep elf_i386 2>/dev/null | head -n 1)
-CFLAGS += -D__KERNEL__
+SRC := \
+	$S/start.S \
+	$S/switch.S \
+	$C/kern_main.c \
+	$C/kern_uart.c \
+	$C/kern_time.c \
+	$C/kern_announce.c \
+	$C/kern_user_init.c \
+	$C/sched_pool.c \
+	$C/sched_proc.c \
+	$C/lib_math.c \
+	$S/time.S
 
-ifneq ($(shell $(CC) -dumpspecs 2>/dev/null | grep -e '[^f]no-pie'),)
-CFLAGS += -fno-pie -no-pie
-endif
-ifneq ($(shell $(CC) -dumpspecs 2>/dev/null | grep -e '[^f]nopie'),)
-CFLAGS += -fno-pie -nopie
-endif
+all: $(KNAME)
 
-# Disable PIE when possible
-ifneq ($(shell $(CC) -dumpspecs 2>/dev/null | grep -e '[^f]no-pie'),)
-CFLAGS += -fno-pie -no-pie
-endif
-ifneq ($(shell $(CC) -dumpspecs 2>/dev/null | grep -e '[^f]nopie'),)
-CFLAGS += -fno-pie -nopie
-endif
-
-bin/kernel: $O $A/kernel.ld
-	mkdir -p bin
-	$(LD) $(LDFLAGS) -T$A/kernel.ld $O -o $@
-	$(OBJDUMP) -S bin/kernel > bin/kernel.dis
-	$(OBJDUMP) -t bin/kernel | sed '1,/SYMBOL TABLE/d; s/ .* / /; /^$$/d' > bin/kernel.dsym
+$(KNAME): $(SRC)
+	$(CC) $(CFLAGS) -T krnl.ld -o $(KNAME) $^
 
 clean:
-	@(rm $O $D &> /dev/null) || true
-	@(rm bin/kernel &> /dev/null) || true
+	@(rm krnl.sw) || true
 
-qemu:
-	qemu-system-i386 -m 4G -smp 4 -kernel bin/kernel -serial mon:stdio
+qemu: $(TARGET)
+	@qemu-system-riscv32 -M ? | grep virt >/dev/null || exit
+	$(QEMU) $(QFLAGS) -kernel $(KNAME)
 
-.PHONY : qemu clean
-
--include $D
-%.o: %.s
-	$(AS) $(ASFLAGS) -c $< -o $@
-
-%.o: %.c
-	$(CC) $(CFLAGS) -c $< -o $@
+.PHONY : all qemu clean

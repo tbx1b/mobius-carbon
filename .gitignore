@@ -1,7 +1,5 @@
-*.o
-*.old
-*.d
-bin/kernel
-compile_commands.json
 .DS_Store
+*.o
+krnl.sw
 .cache
+.vscode
