@@ -19,3 +19,31 @@ void __kern_delay(volatile size count);
 #define CLINT_MTIME (CLINT + 0xBFF8) // cycles since boot.
 
 extern void sys_timer();
+
+extern void __kern_delay(reg_t r)
+#define delay __kern_delay
+
+extern void __kern_core_id(reg_t r)
+#define core_id __kern_core_id
+
+extern void __kern_rmstatus(reg_t r)
+#define rmstatus __kern_rmstatus
+
+extern void __kern_wmstatus(reg_t r)
+#define wmstatus __kern_wmstatus
+
+extern void __kern_wmpec(reg_t r)
+#define wmpec __kern_wmpec
+
+extern void __kern_wmscratch(reg_t r)
+#define wmscratch __kern_wmscratch
+
+extern void __kern_mtvec(reg_t r)
+#define mtvec __kern_mtvec
+
+extern void __kern_rmie(reg_t r)
+#define rmie __kern_rmie
+
+extern void __kern_wmie(reg_t r)
+#define wmie __kern_wmie
+
