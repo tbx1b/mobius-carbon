@@ -9,7 +9,7 @@ void __kern_delay(volatile size count) {
 }
 
 /* get the core */
-reg_t core_id() {
+reg_t __kern_core_id() {
   reg_t r;
   __asm__ volatile("csrr %0, mhartid" : "=r"(r));
   return r;
@@ -48,7 +48,7 @@ static const i64 interval = 10000000;
 
 void timer_init()
 {
-  int id = core_id();
+  int id = __kern_core_id();
   *(reg_t*)CLINT_MTIMECMP(id) = *(reg_t*)CLINT_MTIME + interval;
   __kern_mtvec((reg_t)sys_timer);
   __kern_wmstatus(__kern_rmstatus() | MIE);
@@ -61,7 +61,7 @@ reg_t timer_handler(reg_t epc, reg_t cause)
 
   __kern_wmie(~((~__kern_rmie()) | (1 << 7)));
 
-  int id = core_id();
+  int id = __kern_core_id();
   *(reg_t *)CLINT_MTIMECMP(id) = *(reg_t *)CLINT_MTIME + interval;
 
   __kern_wmie(__kern_rmie() | MIE_MTIE);
